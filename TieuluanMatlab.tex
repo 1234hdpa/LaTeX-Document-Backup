@@ -1,5 +1,6 @@
 %Phần thiết đặt trang
 \documentclass[12pt,a4paper]{article}
+\usepackage[LGRgreek]{mathastext}
 \usepackage[utf8]{vietnam}
 \usepackage{amsfonts}
 \usepackage{amsmath}
@@ -36,11 +37,38 @@
 
 %Nội dung chính
 \begin{document}
-	
-	
+%Chỉnh loại tiêu đề chương thành I, II
+\renewcommand\thesection{\Roman{section}.}
+\renewcommand\thesubsection{\arabic{subsection}.}
+\renewcommand\thesubsubsection{\alph{subsubsection}.}
+%Mục lục
+\tableofcontents
+
+%Chương 1:
+\section{Cơ bản về MATLAB}
+\subsection{Không gian làm việc}
+\subsubsection{Giao diện chính}
+Có 3 cách khởi động chương trình Matlab từ máy tính chạy Windows:\\
+- Khởi động từ biểu tượng ngoài màn hình.\\
+- Vào biểu tượng Start $>$ All Program $>$ Matlab $>$ Matlab 2016a.\\
+- Mở trực tiếp tập tin có đuôi mở rộng là .m, ví dụ: Bai1.m hoặc Hamso.m\\
+
+
+\subsubsection{Các thao tác cơ bản}
+
+\subsection{Biến, câu giải thích, chấm câu}
+\subsection{Các hằng số, các phép toán cơ bản, các hàm toán học}
+\subsection{Quản lý tập, M-file, M-hàm}
+%Chương 2:
+\section{Các thao tác và phép toán với mảng}
+%Chương 3:
+\section{Vòng lặp điều khiển}
+%Chương 4:
+\section{Đồ thị trong mặt phẳng và trong không gian}
 	%Bìa để sau
 	
 	%Mục lục
+	
 	Tiểu luận môn học Phần mềm Toán học
 
 “Một số kiến thức về phần mềm MATLAB”
