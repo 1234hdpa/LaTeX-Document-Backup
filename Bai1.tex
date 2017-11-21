@@ -1,0 +1,54 @@
+%Định dạng loại văn bản
+\documentclass[12pt,a4paper]{article}
+%Yêu cầu gói Tiếng Việt
+\usepackage[utf8]{vietnam}
+%Yêu cầu gói công thức Toán, font Toán, ký hiệu Toán
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+%Yêu cầu gói đồ hoạ
+\usepackage{graphicx}
+%Định lề giấy
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+%Tự động tạo bookmark ở file pdf sau khi biên dịch
+\usepackage[unicode]{hyperref}
+%Ngăn thụt vào đầu dòng ở đầu dòng mỗi đoạn
+\setlength{\parindent}{0pt}
+%Muốn thục một đoạn nào thì thêm \noindent đầu đoạn đó
+%Muốn đoạn đầu tiên thục vào
+\usepackage{indentfirst}
+%Tăng khoảng cách giữa các dòng
+%\renewcommand{\baselinestretch}{2.0}
+%Tăng khoảng cách giữa các đoạn (không ảnh hưởng đến dòng)
+\usepackage{parskip}
+\setlength{\parskip}{0.5em}
+%Danh sách kính gửi:
+\newenvironment{danhsach}
+    {\textbf{Danh sách:}
+    \begin{minipage}[t]{0.8\linewidth}
+    \begin{itemize}}
+    {\end{itemize}\end{minipage}}
+%Bắt đầu văn bản
+\begin{document}
+	Bất đẵng thức Cauchy: với $x_1,x_2,\ldots,x_n\geq 0$, ta có: $\dfrac{x_1+x_2+\ldots+x_n}{n}\geq\sqrt[n]{x_1 x_2\ldots x_n}$
+	
+	Sau đây là dòng tiếp theo. Sau đây là dòng tiếp theo. Sau đây là dòng tiếp theo. Sau đây là dòng tiếp theo. Sau đây là dòng tiếp theo. Sau đây là dòng tiếp theo. Sau đây là dòng tiếp theo. Sau đây là dòng tiếp theo. Sau đây là dòng tiếp theo. Sau đây là dòng tiếp theo. Sau đây là dòng tiếp theo. Sau đây là dòng tiếp theo.
+	
+	Sau đây là dòng tiếp theo. Sau đây là dòng tiếp theo. Sau đây là dòng tiếp theo. Sau đây là dòng tiếp theo.
+	
+	Sau đây là dòng tiếp theo. Sau đây là dòng tiếp theo. Sau đây là dòng tiếp theo. Sau đây là dòng tiếp theo.
+	
+	Danh sách mua đồ ăn:
+	\renewcommand{\labelitemi}{$-$}
+	
+	\begin{danhsach}
+		\item Trứng chiên
+		\item Hột gà tươi
+		\item Xúc xích
+		\item Chuối
+		\item Bánh mì kẹp
+		\item Bơ
+		\item Mỡ hành
+		\item Sốt Mazonelisa
+	\end{danhsach}
+\end{document}
