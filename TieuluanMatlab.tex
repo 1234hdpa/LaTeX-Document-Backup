@@ -36,6 +36,10 @@
   tabsize=3
 }
 
+%Phần chọn font chèn câu lệnh giữa đoạn
+\newenvironment{code}{\ttfamily}{\par}
+\DeclareTextFontCommand{\chuyencode}{\code}
+
 %Nội dung chính
 \begin{document}
 %Chỉnh loại tiêu đề chương thành I, II
@@ -75,11 +79,39 @@ Giao diện chính của chương trình sau khi khởi động sẽ tương t�
 \end{center}
 Trong đó:\\
 \begin{itemize}
-	\item \textbf{Command Window:} 
+	\item \textbf{Command Window:} Khu vực người dùng nhập các câu lệnh điều khiển và tính toán.
+	\item \textbf{Current Folder:} Khu vực truy cập các tập tin m-file, m-hàm... được lưu trữ trên ổ đĩa máy tính.
+	\item \textbf{Workspace:} Liệt kê các biến và dữ liệu đang được xử lý tạm thời. Ngoài ra người dùng có thể thao tác thêm bớt chỉnh sửa các giá trị của biến và tham số trực tiếp trên Workspace mà không cần dùng đến câu lệnh.
 \end{itemize}
-
+Ngoài ba khu vực chính trên, kể từ phiên bản MATLAB 2012a, thanh công cụ phía trên cùng truyền thống đã được thay thế bằng các thẻ lệnh Ribbon với biểu tượng cụ thể và rõ ràng hơn.\\
+\begin{center}
+	\begin{figure}[htp]
+		\begin{center}
+		\includegraphics[scale=.5]{hinhtieuluan/pic3}
+		\end{center}
+		\caption{Thẻ Home (hình trên) ở giao diện mới và thanh công cụ truyền thống (hình dưới)}
+		\label{refhinh3}
+	\end{figure}
+\end{center}
 \subsubsection{Các thao tác cơ bản}
-
+MATLAB thực hiện các phép cộng, trừ, nhân, chia như một chiếc máy tính bình thường. Xét các ví dụ đơn giản sau:\\
+\textbf{Ví dụ 1:} Tính 3 + 2 + 6; 4 x 6 x 25 + 32 - 9 : 3.
+\begin{lstlisting}
+	>> 3 + 2 + 6 =
+	ans=
+				12
+	>> 4 * 6 * 25 + 32 - 9 / 3 =
+	ans=
+				629
+\end{lstlisting}
+\textbf{Lưu ý:} MATLAB không quan tâm đến khoảng trắng giữa các dấu và luôn ưu tiên phép nhân rồi mới đến phép cộng. Kí hiệu \chuyencode{ans} là viết tắt của từ "answer" có nghĩa là kết quả của phép tính.\\
+\textbf{Ví dụ 2:} Tính $sin{\dfrac{\pi}{2}}+cos{\dfrac{\pi}{2}}$\\
+\begin{lstlisting}
+	>>sin(\pi/2)+cos(\pi/2)=
+	ans=
+				1
+\end{lstlisting}
+Ngoài ra, người dùng có thể dùng lệnh \chuyencode{}
 \subsection{Biến, câu giải thích, chấm câu}
 \subsection{Các hằng số, các phép toán cơ bản, các hàm toán học}
 \subsection{Quản lý tập, M-file, M-hàm}
