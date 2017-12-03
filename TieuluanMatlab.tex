@@ -21,7 +21,7 @@
 \definecolor{mauve}{rgb}{0.58,0,0.82}
 
 \lstset{frame=tb,
-  language=C++,
+  language=Matlab,
   aboveskip=3mm,
   belowskip=3mm,
   showstringspaces=false,
@@ -173,8 +173,8 @@ Trong MATLAB, ta nên tập thói quen dùng các thư mục được sắp xế
 \end{itemize}
 \textbf{Nâng cao:} Với những người dùng thường xuyên lưu trữ chương trình hoặc các tập tin m-file ở các thư mục nằm nhiều nơi trên ổ đĩa, người dùng có thể thêm đường dẫn thư mục đó vào cửa sổ \textbf{Set Path (trong phần Enviroment)} để có thể chạy lệnh tính toán mà không cần quan tâm vị trí lưu trữ thư mục chứa các tập tin đó.
 \subsubsection{Scripts (Đoạn mã lệnh)}
-Scripts (còn được gọi là đoạn mã lệnh, m-hàm hoặc m-file) là một tập tin chứa các câu lệnh chạy trong mội trường MATLAB. Các câu lệnh được lưu trữ trong tập tin này sẽ được thực thi theo trình tự.\\
-Scripts được viết trong cửa sổ MATLAB Editor tích hợp sẵn trong MATLAB và được lưu trên ổ đĩa dưới dạng các tập tin có đuôi mở rộng là .m, dung lượng thường chưa đến 100MB. Ngoài ra, ta hoàn toàn có thể dùng một công cụ soạn thảo cơ bản như \textbf{Notepad} mặc định của Windows để tạo ra một tập tin đuôi .m nhưng yêu cầu các câu lệnh trong đó phải đúng và thực thi được trong môi trường MATLAB.\\
+Scripts (còn được gọi là đoạn mã lệnh) là một tập tin chứa các câu lệnh chạy trong mội trường MATLAB. Các câu lệnh được lưu trữ trong tập tin này sẽ được thực thi theo trình tự.\\
+Scripts được viết trong cửa sổ MATLAB Editor tích hợp sẵn trong MATLAB và được lưu trên ổ đĩa dưới dạng các tập tin có đuôi mở rộng là .m, dung lượng thường không quá 100MB. Ngoài ra, ta hoàn toàn có thể dùng một công cụ soạn thảo cơ bản như \textbf{Notepad} mặc định của Windows để tạo ra một tập tin đuôi .m nhưng yêu cầu các câu lệnh trong đó phải đúng và thực thi được trong môi trường MATLAB.\\
 Các cách tạo một tập tin MATLAB (đuôi .m):
 \begin{itemize}
 	\item Từ Command Windows gõ câu lệnh với cú pháp \chuyencode{edit tenfile.m}, trong đó ta thay thế \chuyencode{tenfile.m} bằng tên tập tin muốn tạo. Sau đó chọn OK trong cửa sổ xác nhận tạo tập tin tenfile.m.
@@ -190,7 +190,21 @@ Các cách tạo một tập tin MATLAB (đuôi .m):
 \end{center}
 	\item Ngoài hai cách trên, ta còn có thể dùng tổ hợp phím \keys{\ctrl + N} (đối với Windows) hoặc \keys{\cmd + N} (đối với MacOS) để mở cửa số MATLAB Editor và tạo tập tin mới.
 \end{itemize}
-
+\textbf{Lưu ý:} Nội dung ban đầu của script thường là những câu lệnh, nhưng nếu trong script có yêu cầu input (nhập dữ liệu vào) và có lệnh output (xuất dữ liệu ra) thì nó sẽ trở thành một m-hàm. 
+\subsubsection{Comment}
+Trong lúc soạn thảo các câu lệnh ở cửa sổ MATLAB Editor, người dùng có thể thêm những dòng chú thích vào dòng nào đó, qua đó giúp người dùng có thể đánh dấu, ghi nhớ hoặc tra cứu lại ý nghĩa của đoạn mã mà họ sử dụng. Các phần chú thích đó còn được gọi là những Comment (bình luận) và có hai cách thực hiện tạo Comment:
+\begin{itemize}
+	\item Đối với nội dung ghi chú ngắn, có thể chỉ 1 dòng thì chỉ cần thêm ký tự "\%" vào trước câu ghi chú đó là được. Ví dụ: \textcolor{green}{\chuyencode{\%Day la cau ghi chu.}} Thường những câu ghi chú sẽ được quy định chữ màu xanh lá để giúp người dùng dễ dàng phân biệt.
+	\item Đối với những phần ghi chú có nhiều dòng, nội dung dài. Người dùng sẽ dùng cú pháp như dưới dây:
+\begin{lstlisting}
+	%{
+	Noi dung ghi chu, dong 1.
+	Noi dung ghi chu, dong 2.
+	...
+	Noi dung ghi chu, dong n.
+	%}
+\end{lstlisting}
+\end{itemize}
 %Chương 2:
 \section{Các thao tác và phép toán với mảng}
 %Chương 3:
