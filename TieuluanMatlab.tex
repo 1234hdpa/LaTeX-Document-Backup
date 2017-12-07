@@ -48,6 +48,10 @@
 %Thêm định dạng cho các nút và menu lệnh.
 \usepackage{menukeys}
 
+%Đánh số cho các ví dụ
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{vd}[thm]{Ví dụ}
+
 %Nội dung chính
 \begin{document}
 %Chỉnh loại tiêu đề chương thành I, II
@@ -104,35 +108,43 @@ Ngoài ba khu vực chính trên, kể từ phiên bản MATLAB 2012a, thanh cô
 \end{center}
 \subsubsection{Các thao tác cơ bản}
 MATLAB thực hiện các phép cộng, trừ, nhân, chia như một chiếc máy tính bình thường. Xét các ví dụ đơn giản sau:\\
-\textbf{Ví dụ 1:} Tính 3 + 2 + 6; 4 x 6 x 25 + 32 - 9 : 3.
-\begin{lstlisting}
+\begin{vd}
+	\normalfont Tính 3 + 2 + 6; 4 x 6 x 25 + 32 - 9 : 3.
+	\begin{lstlisting}
 	>> 3 + 2 + 6 =
 	ans =
 				12
 	>> 4 * 6 * 25 + 32 - 9 / 3 =
 	ans =
 				629
-\end{lstlisting}
+	\end{lstlisting}
+\end{vd}
+
 \textbf{Lưu ý:} MATLAB không quan tâm đến khoảng trắng giữa các dấu và luôn ưu tiên phép nhân rồi mới đến phép cộng. Kí hiệu \chuyencode{ans} là viết tắt của từ "answer" có nghĩa là kết quả của phép tính.\\
-\textbf{Ví dụ 2:} Tính $sin{\dfrac{\pi}{2}}+cos{\dfrac{\pi}{2}}$\\
-\begin{lstlisting}
+\begin{vd}
+	\normalfont Tính $sin{\dfrac{\pi}{2}}+cos{\dfrac{\pi}{2}}$\\
+	\begin{lstlisting}
 	>> sin(\pi/2)+cos(\pi/2)=
 	ans =
 				1
-\end{lstlisting}
+	\end{lstlisting}
+\end{vd}
 \subsection{Biến, hằng số, hàm cơ bản}
 Trong MATLAB, ta có thể gián giá trị cho biến với tên gọi bất kỳ, điều này giúp cho việc tính toán rõ ràng vả dễ dàng hơn. Đặt biệt với những bài tính toán với các biến số, ta dễ dàng thay đổi giá trị của biến số để có được các kết quả phù hợp với yêu cầu tính toán.\\
-\textbf{Yêu cầu khi đặt tên biến:} Tên biến phải bắt đầu bằng chữ cái, các ký tự sau ký tự đầu tiên có thể là số, chữ hoặc ký tự "\_". Ngoài ra, MATLAB phân biệt ký tự hoa sẽ khác với ký tự thường. Tức là biến "var1" sẽ khác với biến "Var1".\\
+\textbf{Yêu cầu khi đặt tên biến:} Tên biến phải bắt đầu bằng chữ cái, các ký tự sau ký tự đầu tiên có thể là số, chữ hoặc ký tự "\_". Tên biến có độ dài tối đa là 31 ký tự, trong tên biến không được dùng dấu chấm câu. Ngoài ra, MATLAB phân biệt ký tự hoa sẽ khác với ký tự thường. Tức là biến "var1" sẽ khác với biến "Var1".\\
 Một số biến đã được định nghĩa sẵn (một số còn được gọi là hằng số):
 \begin{itemize}
 	\item Ký tự i và j được dùng cho đơn vị phức.
+	\item Biến eps dùng để chỉ số nhỏ nhất, số này khi cộng với 1 ta được số nhỏ nhất lớn hơn 1.
 	\item Biến pi dùng để chỉ số pi ($\pi$), với giá trị là 3.1415926...
 	\item Biến ans dùng để lưu kết quả vừa tính toán trước đó.
 	\item Biến Inf và -Inf (lưu ý ký tự I đứng đầu được viết hoa) dùng để biểu diễn dương và âm vô cực.
 	\item Ký tự NaN thể hiện cho "Not a Number", không phải là một số.
 \end{itemize}
 \textbf{Biến thông thường:} (hay còn được gọi là biến vô hướng) là biến đucợ người dùng định nghĩa bằng cách gián một giá trị cụ thể nào đó trực tiếp thông qua câu lệnh trong Command Windows.
-\textbf{Ví dụ 1:} Tạo biến tên a chứa giá trị là số 10. Ta sẽ nhập lệnh vào Command Windows như sau:
+\begin{vd}
+\normalfont
+Tạo biến tên a chứa giá trị là số 10. Ta sẽ nhập lệnh vào Command Windows như sau:
 \begin{lstlisting}
 	>> a = 10
 	a =
@@ -148,7 +160,9 @@ Ngay lập tức biến tên a sẽ được liệt kê trong khu vực Workspac
 		\label{refhinh4}
 	\end{figure}
 \end{center}
-\textbf{Ví dụ 2:} Tạo biến c dựa vào biến a có sẵn biết rằng c được tính qua biểu thức $c=a^2+a^3$. Ta tiếp tục nhập lệnh sau vào khu vực Command Window từ ví dụ trước đó:
+\end{vd}
+\begin{vd}
+\normalfont Tạo biến c dựa vào biến a có sẵn biết rằng c được tính qua biểu thức $c=a^2+a^3$. Ta tiếp tục nhập lệnh sau vào khu vực Command Window từ ví dụ trước đó:
 \begin{lstlisting}
 	>> c = a^2 + a^3
 	c =
@@ -161,6 +175,8 @@ Qua ví dụ 2 ta có thể tạo biến dựa vào giá trị của một biế
 	b =
         	1106
 \end{lstlisting}
+\end{vd}
+
 
 \subsection{Quản lý tập tin, M-file}
 \subsubsection{Tạo thư mục lưu trữ}
@@ -191,8 +207,8 @@ Các cách tạo một tập tin MATLAB (đuôi .m):
 	\item Ngoài hai cách trên, ta còn có thể dùng tổ hợp phím \keys{\ctrl + N} (đối với Windows) hoặc \keys{\cmd + N} (đối với MacOS) để mở cửa số MATLAB Editor và tạo tập tin mới.
 \end{itemize}
 \textbf{Lưu ý:} Nội dung ban đầu của script thường là những câu lệnh, nhưng nếu trong script có yêu cầu input (nhập dữ liệu vào) và có lệnh output (xuất dữ liệu ra) thì nó sẽ trở thành một m-hàm. 
-\subsubsection{Comment}
-Trong lúc soạn thảo các câu lệnh ở cửa sổ MATLAB Editor, người dùng có thể thêm những dòng chú thích vào dòng nào đó, qua đó giúp người dùng có thể đánh dấu, ghi nhớ hoặc tra cứu lại ý nghĩa của đoạn mã mà họ sử dụng. Các phần chú thích đó còn được gọi là những Comment (bình luận) và có hai cách thực hiện tạo Comment:
+\subsubsection{Ghi chú (Comment)}
+Trong lúc soạn thảo các câu lệnh ở cửa sổ MATLAB Editor, người dùng có thể thêm những dòng chú thích vào dòng nào đó, qua đó giúp người dùng có thể đánh dấu, ghi nhớ hoặc tra cứu lại ý nghĩa của đoạn mã mà họ sử dụng. Các phần chú thích đó còn được gọi là những \textbf{Comment} và có hai cách thực hiện tạo một \textbf{Comment}:
 \begin{itemize}
 	\item Đối với nội dung ghi chú ngắn, có thể chỉ 1 dòng thì chỉ cần thêm ký tự "\%" vào trước câu ghi chú đó là được. Ví dụ: \textcolor{green}{\chuyencode{\%Day la cau ghi chu.}} Thường những câu ghi chú sẽ được quy định chữ màu xanh lá để giúp người dùng dễ dàng phân biệt.
 	\item Đối với những phần ghi chú có nhiều dòng, nội dung dài. Người dùng sẽ dùng cú pháp như dưới dây:
@@ -207,10 +223,42 @@ Trong lúc soạn thảo các câu lệnh ở cửa sổ MATLAB Editor, người
 \end{itemize}
 %Chương 2:
 \section{Các thao tác và phép toán với mảng}
+\subsection{Các thao tác với mảng}
+\subsubsection{Mảng đơn}
+\subsubsection{Địa chỉ của mảng}
+\subsubsection{Cấu trúc của mảng}
+\subsubsection{Vectơ hàng và vectơ cột}
+\subsubsection{Mảng có phần tử là 0 hoặc 1}
+\subsubsection{Thao tác đối với mảng}
+\subsubsection{Tìm kiếm mảng con}
+\subsubsection{So sánh mảng}
+\subsubsection{Kích cỡ của mảng}
+\subsubsection{Mảng nhiều chiều}
+\subsection{Các phép toán với mảng}
+\subsubsection{Tạo phương trình tuyến tính}
+\subsubsection{Các hàm ma trận}
+\subsubsection{Các ma trận đặc biệt}
 %Chương 3:
 \section{Vòng lặp điều khiển}
+\subsection{Vòng lặp for}
+\subsection{Vòng lặp while}
+\subsection{Cấu trúc if-else-end}
+\subsection{Cấu trúc switch-case}
 %Chương 4:
-\section{Đồ thị trong mặt phẳng và trong không gian}
+\section{Đồ hoạ trong hệ toạ độ phẳng và không gian ba chiều}
+\subsection{Đồ hoạ trong hệ toạ độ phẳng}
+\subsubsection{Sử dụng lệnh plot}
+\subsubsection{Kiểu đường, dấu và màu}
+\subsubsection{Kiểu đồ thị}
+\subsubsection{Đồ thị lưới, hộp chức trục, nhãn và lời chú giải}
+\subsubsection{Kiến tạo hệ trục toạ độ}
+\subsubsection{In hình}
+\subsubsection{Thao tác với đồ thị}
+\subsection{Đồ hoạ trong không gian ba chiều}
+\subsubsection{Đồ thị đường thẳng}
+\subsubsection{Đồ thị bề mặt và lưới}
+\subsubsection{Thao tác với đồ thị}
+
 	%Bìa để sau
 	
 	%Mục lục
