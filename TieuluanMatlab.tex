@@ -48,9 +48,12 @@
 %Thêm định dạng cho các nút và menu lệnh.
 \usepackage{menukeys}
 
-%Đánh số cho các ví dụ
-\newtheorem{thm}{Theorem}[section]
-\newtheorem{vd}[thm]{Ví dụ}
+%Đánh số cho các ví dụ và bài tập
+\usepackage[thref,thmmarks,standard,amsmath,hyperref]{ntheorem}
+\theoremheaderfont{\bfseries}
+\theorembodyfont{\normalfont}
+\theoremseparator{:}
+\renewtheorem{example}{Ví dụ}
 
 %Nội dung chính
 \begin{document}
@@ -108,8 +111,8 @@ Ngoài ba khu vực chính trên, kể từ phiên bản MATLAB 2012a, thanh cô
 \end{center}
 \subsubsection{Các thao tác cơ bản}
 MATLAB thực hiện các phép cộng, trừ, nhân, chia như một chiếc máy tính bình thường. Xét các ví dụ đơn giản sau:\\
-\begin{vd}
-	\normalfont Tính 3 + 2 + 6; 4 x 6 x 25 + 32 - 9 : 3.
+\begin{example}
+	Tính 3 + 2 + 6; 4 x 6 x 25 + 32 - 9 : 3.
 	\begin{lstlisting}
 	>> 3 + 2 + 6 =
 	ans =
@@ -118,17 +121,17 @@ MATLAB thực hiện các phép cộng, trừ, nhân, chia như một chiếc m�
 	ans =
 				629
 	\end{lstlisting}
-\end{vd}
+\end{example}
 
 \textbf{Lưu ý:} MATLAB không quan tâm đến khoảng trắng giữa các dấu và luôn ưu tiên phép nhân rồi mới đến phép cộng. Kí hiệu \chuyencode{ans} là viết tắt của từ "answer" có nghĩa là kết quả của phép tính.\\
-\begin{vd}
-	\normalfont Tính $sin{\dfrac{\pi}{2}}+cos{\dfrac{\pi}{2}}$\\
+\begin{example}
+	Tính $sin{\dfrac{\pi}{2}}+cos{\dfrac{\pi}{2}}$\\
 	\begin{lstlisting}
 	>> sin(\pi/2)+cos(\pi/2)=
 	ans =
 				1
 	\end{lstlisting}
-\end{vd}
+\end{example}
 \subsection{Biến, hằng số, hàm cơ bản}
 Trong MATLAB, ta có thể gián giá trị cho biến với tên gọi bất kỳ, điều này giúp cho việc tính toán rõ ràng vả dễ dàng hơn. Đặt biệt với những bài tính toán với các biến số, ta dễ dàng thay đổi giá trị của biến số để có được các kết quả phù hợp với yêu cầu tính toán.\\
 \textbf{Yêu cầu khi đặt tên biến:} Tên biến phải bắt đầu bằng chữ cái, các ký tự sau ký tự đầu tiên có thể là số, chữ hoặc ký tự "\_". Tên biến có độ dài tối đa là 31 ký tự, trong tên biến không được dùng dấu chấm câu. Ngoài ra, MATLAB phân biệt ký tự hoa sẽ khác với ký tự thường. Tức là biến "var1" sẽ khác với biến "Var1".\\
@@ -142,7 +145,7 @@ Một số biến đã được định nghĩa sẵn (một số còn được g
 	\item Ký tự NaN thể hiện cho "Not a Number", không phải là một số.
 \end{itemize}
 \textbf{Biến thông thường:} (hay còn được gọi là biến vô hướng) là biến đucợ người dùng định nghĩa bằng cách gián một giá trị cụ thể nào đó trực tiếp thông qua câu lệnh trong Command Windows.
-\begin{vd}
+\begin{example}
 \normalfont
 Tạo biến tên a chứa giá trị là số 10. Ta sẽ nhập lệnh vào Command Windows như sau:
 \begin{lstlisting}
@@ -160,8 +163,8 @@ Ngay lập tức biến tên a sẽ được liệt kê trong khu vực Workspac
 		\label{refhinh4}
 	\end{figure}
 \end{center}
-\end{vd}
-\begin{vd}
+\end{example}
+\begin{example}
 \normalfont Tạo biến c dựa vào biến a có sẵn biết rằng c được tính qua biểu thức $c=a^2+a^3$. Ta tiếp tục nhập lệnh sau vào khu vực Command Window từ ví dụ trước đó:
 \begin{lstlisting}
 	>> c = a^2 + a^3
@@ -175,7 +178,7 @@ Qua ví dụ 2 ta có thể tạo biến dựa vào giá trị của một biế
 	b =
         	1106
 \end{lstlisting}
-\end{vd}
+\end{example}
 
 
 \subsection{Quản lý tập tin, M-file}
@@ -222,19 +225,164 @@ Trong lúc soạn thảo các câu lệnh ở cửa sổ MATLAB Editor, người
 \end{lstlisting}
 \end{itemize}
 %Chương 2:
-\section{Các thao tác và phép toán với mảng}
-\subsection{Các thao tác với mảng}
+\section{Các phép toán và thao tác với mảng}
+\subsection{Các phép toán với mảng}
 \subsubsection{Mảng đơn}
+Mảng đơn trong MATLAB có cấu trúc tương tự như các ngôn ngữ lập trình khác. Với mảng ta có thể lưu một dãy giá trị bất kỳ và thực hiện tính toán, sắp xếp các giá trị đó.
+\begin{example}
+Tạo một mảng số nguyên từ 1 đến 10 và đặt tên là mảng A.\\
+Ta sẽ tạo một mảng A gồm các phần tử 1, 2, 3, ..., 10 bằng cú pháp sau:
+\begin{lstlisting}
+	>> A=[1,2,3,4,5,6,7,8,9,10]
+	A =
+     		1     2     3     4     5     6     7     8     9    10
+\end{lstlisting}	
+Ngoài cách liệt kê như trên, ta có thể tạo mảng A bằng cú pháp ngắn gọn hơn. Chẳng hạn:
+\begin{lstlisting}
+	>> A=[1:10]
+	A =
+     		1     2     3     4     5     6     7     8     9    10
+\end{lstlisting}
+Với giá trị đầu và giá trị cuối, ta hoàn toàn có thể tạo một mảng chứa rất nhiều số mà không phải nhập vào một câu lệnh dài dòng. Mặt định MATLAB sẽ quy ước mỗi phần tử tiếp theo sẽ tăng lên một đơn vị nhưng ta có thể thay đổi giá trị tăng lên theo ý muốn. Ví dụ ta cho giá trị tăng lên giữa các đơn vị từ 1 đến 10 sẽ là 0.5 như sau:
+\begin{lstlisting}
+	>> A=[1:0.5:10]
+	A =
+  	Columns 1 through 12
+    	1.0000    1.5000    2.0000    2.5000    3.0000    3.5000    4.0000    4.5000    5.0000    5.5000    6.0000    6.5000
+  	Columns 13 through 19
+    	7.0000    7.5000    8.0000    8.5000    9.0000    9.5000   10.0000
+\end{lstlisting}
+\end{example}
+\begin{example}
+Tạo một mảng chứa các số nguyên lẻ từ 31 đến 51. Ta thực hiện như sau:
+\begin{lstlisting}
+	>> B=[31:2:51]
+	B =
+    	31    33    35    37    39    41    43    45    47    49    51
+\end{lstlisting}
+\textbf{Tóm lại:} Để tạo mảng, ta đặt các phần tử của mảng vào giữa hai dấu ngoặc vuông "[...]", giữa hai phần tử của mảng có thể là dấu cách hoặc dấu phẩy ",". Nếu mảng cần tạo có dạng chuỗi số liên tục, ta dùng dấu hai chấm ":" để ngăn cách phần tử đầu với phần tử cuối. Ta có thể thay đổi chênh lệch giữa các phần tử bằng cách chèn thêm độ chênh lệch vào giữa phần tử đầu và phần tử cuối, lưu ý luôn có dấu hai chấm ":" ngăn cách giữa các phần tử.
+\end{example}
 \subsubsection{Địa chỉ của mảng}
+Các thành phần trong mảng luôn có số thứ tự, phần tử đầu tiên có số thứ tự là 1 và tăng dần cho đến phần tử cuối cùng trong mảng.\\
+Để truy cập đến phần tử thứ \chuyencode{i} trong mảng \chuyencode{A} chẳng hạn, ta chỉ cần sử dụng cú pháp \chuyencode{A(i)} là MATLAB sẽ trả về giá trị phần tử đó trong mảng A ứng với thứ tự i. 
+\begin{example}
+Cho mảng A gồm các số từ 1 đến 10. Thực hiện các truy cập sau:
+\begin{itemize}
+	\item Khởi tạo mảng A.
+\begin{lstlisting}
+	>> A=[1:10]
+	A =
+     	1     2     3     4     5     6     7     8     9    10
+\end{lstlisting}
+	\item Xuất phần tử thứ 4 của mảng A.
+\begin{lstlisting}
+	>> A(4)
+	ans =
+     	4
+\end{lstlisting}
+	\item Xuất các phần tử từ thứ tự 2 đến 6 trong mảng A.
+\begin{lstlisting}
+	>> A(2:6)
+	ans =
+     	2     3     4     5     6
+\end{lstlisting}
+	\item Xuất các phần tử từ thứ tự 3 đến phần tử cuối cùng trong mảng A.
+\begin{lstlisting}
+	>> A(3:end)
+	ans =
+     	3     4     5     6     7     8     9    10
+\end{lstlisting}
+	\item Xuất các phần tử từ thứ tự 7 trở về trước trong mảng A.
+\begin{lstlisting}
+	>> A(7:-1:1)
+	ans =
+     	7     6     5     4     3     2     1
+\end{lstlisting}
+	\item Xuất các phần tử từ thứ tự 2 đến thứ tự 9, nhưng vị trí phần tử sau lớn hơn phần tử trước 2 đơn vị trong mảng A.
+\begin{lstlisting}
+	>> A(2:2:9)
+	ans =
+     	2     4     6     8
+\end{lstlisting}
+	\item Tạo mảng B mới gồm các phần tử thứ tự 3, 5, 9 của mảng A.
+\begin{lstlisting}
+	>> B=A([5,3,9])
+	B =
+     	5     3     9
+\end{lstlisting}
+\end{itemize}	
+\end{example}
 \subsubsection{Cấu trúc của mảng}
+Như phần trước, ngoài cách tạo một mảng tự động bằng phần tử đầu, phần tử cuối và độ chênh lệch, người dùng còn có thể tạo mảng bằng lệnh \chuyencode{linspace}. Cú pháp của hàm này như sau:
+\begin{center}
+	\chuyencode{linspace(giá trị phần tử đầu, giá trị phần tử cuối, số các phần tử)}
+\end{center}
+Điểm khác biệt của phương pháp này là ta không cần biết độ chênh lệch giữa các phần tử, chỉ với số lượng các phần tử cần có trong mảng là đủ.
+\begin{example}
+Tạo một mảng A có 10 phần tử có giá trị từ 0 đến $\pi$. Cú pháp như sau:
+\begin{lstlisting}
+	>> A=linspace(0,pi,10)
+	A =
+         0    0.3491    0.6981    1.0472    1.3963    1.7453    2.0944    2.4435    2.7925    3.1416
+\end{lstlisting}	
+\end{example}
+Ta có thể ghép nhiều mảng lại với nhau để thành một mảng lớn hơn. Cách làm này sẽ giúp tiết kiệm thời gian với những mảng có nhiều giá trị tuân theo nhiều quy luật khác nhau.
+\begin{example}
+Tạo mảng A chứa 5 phần tử đầu là các số lẻ từ 1 đến 10, 5 phần tử sau là các số chẵn từ 10 đến 20. Cú pháp như sau:
+\begin{lstlisting}
+	>> B=[1:2:10]
+	B =
+     	1     3     5     7     9
+	>> C=[10:2:20]
+	C =
+    	10    12    14    16    18    20
+	>> A=[B,C]
+	A =
+     	1     3     5     7     9    10    12    14    16    18    20
+\end{lstlisting}	
+\end{example}
 \subsubsection{Vectơ hàng và vectơ cột}
+Ở phần trước, các giá trị trong mảng được xếp thành dãy số nằm theo một hàng ngang, do đó người ta còn gọi nó là một vectơ hàng. Ngoài các sắp xếp đó, MATLAB cũng cho phép người dùng tạo cấu trúc mảng nhưng các giá trị được xếp theo một cột thẳng đứng, còn được gọi là vectơ cột. Các thao tác tính toán đối với vectơ cột đều được áp dụng tương tự như với vectơ hàng.
+\begin{example}
+Tạo một vectơ cột a có giá trị sau $a=(1,2,3,4)$. Cú pháp thực hiện:
+\begin{lstlisting}
+	>> a=[1;2;3;4]
+	a =
+     	1
+     	2
+     	3
+     	4
+\end{lstlisting}
+\end{example}
+Điểm khác biệt trong lúc tạo một vectơ cột là các phần tử ngăn cách nhau bởi dấu chấm phẩy ";". Ngoài ra ta hoàn toàn có thể dùng toán tử chuyển vị trong MATLAB (sử dụng dấu nháy đơn (') để thực hiện) sẽ cho ra kết quả tương tự. Ví dụ dưới đây sẽ minh hoạ rõ hơn:
+\begin{example}
+Tạo vectơ a có giá trị $a=(2,4,1,3)$, tiếp tục tạo vectơ b là chuyển vị của vectơ a và tạo vectơ c là chuyển vị của vectơ b.
+\begin{lstlisting}
+	>> a=[2;4;1;3]
+	a =
+     	2
+     	4
+     	1
+     	3
+	>> b=a'
+	b =
+     	2     4     1     3
+	>> c=b'
+	c =
+     	2
+     	4
+     	1
+     	3
+\end{lstlisting}
+\end{example}
+
 \subsubsection{Mảng có phần tử là 0 hoặc 1}
 \subsubsection{Thao tác đối với mảng}
 \subsubsection{Tìm kiếm mảng con}
 \subsubsection{So sánh mảng}
 \subsubsection{Kích cỡ của mảng}
 \subsubsection{Mảng nhiều chiều}
-\subsection{Các phép toán với mảng}
+\subsection{Các thao tác với mảng}
 \subsubsection{Tạo phương trình tuyến tính}
 \subsubsection{Các hàm ma trận}
 \subsubsection{Các ma trận đặc biệt}
