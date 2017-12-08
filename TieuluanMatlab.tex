@@ -753,10 +753,156 @@ Tạo mảng A chứa các số nguyên từ -3 đến 3. Cú pháp như sau:
 Trong đó, i là chỉ số hàng, còn j là chỉ số cột. Giữa i và j có mối quan hệ tương ứng để chỉ những vị trí mà tại đó biểu thức điều kiện là đúng.\\
 \textbf{Lưu ý:} Khi MATLAB trả về kết quả chứa hai hoặc nhiều biến, ta cần đặt chúng trong dấu ngoặc vuông và ở bên trái dấu bằng. Cú pháp này khác với khi ta thực hiện với mảng, khi mà nếu [i,j] được đặt bên phải dấu bằng. 
 \end{example}
-
 \subsubsection{So sánh mảng}
+Chúng ta có thể dùng hàm \chuyencode{isequal} để so sánh hai mảng hoặc ma trận. Xét ví dụ sau đây:
+\begin{example}
+Cho ma trận $A=\begin{bmatrix} 1 & 4 & 7 \\ 2 & 5 & 8 \\ 3 & 6 & 9 \end{bmatrix}$, ma trận $B=A.(-1)^A$ và ma trận $C=[1, 2, ... , 9]$. Khởi tạo các ma trận:
+\begin{lstlisting}
+	>> A=[1,2,3;4,5,6;7,8,9]'
+	A =
+     	1     4     7
+     	2     5     8
+     	3     6     9
+	>> B=A.*(-1).^A
+	B =
+    	-1     4    -7
+     	 2    -5     8
+    	-3     6    -9
+	>> C=1:9
+	C =
+     	1     2     3     4     5     6     7     8     9
+\end{lstlisting}
+Hàm \chuyencode{isequal} sẽ trả về giá trị logic là đúng (1) khi hai mảng có cùng kích cỡ và các phần tử giống nhau, trường hợp ngược lại sẽ trả về giá trị là sai (0).
+\begin{itemize}
+	\item Kiểm tra ma trận A và C.
+\begin{lstlisting}
+	>> isequal(A,C)
+	ans =
+  		logical
+   	0
+\end{lstlisting}
+	\item Kiểm tra ma trận A và B.
+\begin{lstlisting}
+	>> isequal(A,B)
+	ans =
+  		logical
+   	0
+\end{lstlisting}
+	\item Kiểm tra ma trận A và A.
+\begin{lstlisting}
+	>> isequal(A,A)
+	ans =
+  		logical
+   	1
+\end{lstlisting}
+	\item Kiểm tra ma trận C và C'.
+\begin{lstlisting}
+	>> isequal(C,C')
+	ans =
+  		logical
+   	0
+\end{lstlisting}
+\end{itemize}
+\end{example}
+Ngoài ra, hàm \chuyencode{ismember} chỉ ra các phần tử giống nhau giữa hai mảng (nếu có), với giá trị logic bằng 0 nếu khác nhau và giá trị logic bằng 1 nếu giống nhau. Xét tiếp ví dụ dưới đây khi so sáng ma trận A lần lượt với ma trận B và C:
+\begin{lstlisting}
+	>> ismember(A,B)
+	ans =
+  	3x3 logical array
+   	0   1   0
+   	1   0   1
+   	0   1   0
+   >> ismember(A,C)
+	ans =
+  	3x3 logical array
+   	1   1   1
+   	1   1   1
+   	1   1   1
+\end{lstlisting}
+\textbf{Lưu ý:} Hàm \chuyencode{ismember} không yêu cầu các ma trận phải có cùng kích cỡ. Ngoài hai hàm trên, MATLAB còn hỗ trợ nhiều hàm tạo khác, sau đây là một số hàm nâng cao:
+\begin{itemize}
+	\item Hàm tạo ma trận chứa tất cả các phần tử có trong hai mảng.
+\begin{lstlisting}
+	>> union(A,B)
+	ans =
+    	-9
+    	-7
+    	-5
+    	-3
+    	-1
+     	 1
+     	 2
+     	 3
+     	 4
+     	 5
+     	 6
+     	 7
+     	 8
+     	 9
+\end{lstlisting}
+	\item Hàm tìm phần tử chung của hai mảng.
+\begin{lstlisting}
+	>> intersect(A,B)
+	ans =
+     	2
+     	4
+     	6
+     	8
+\end{lstlisting}
+	\item Hàm tìm phần tử có trong A nhưng không có trong B.
+\begin{lstlisting}
+	>> setdiff(A,B)
+	ans =
+     	1
+     	3
+     	5
+     	7
+     	9
+\end{lstlisting}
+	\item Hàm tìm các phần tử không thuộc vào phần chung giữa A và B.
+\begin{lstlisting}
+	>> setxor(A,B)
+	ans =
+    	-9
+    	-7
+    	-5
+    	-3
+    	-1
+    	 1
+    	 3
+    	 5
+    	 7
+    	 9
+\end{lstlisting}
+\end{itemize}
 \subsubsection{Kích cỡ của mảng}
+MATLAB cung cấp hai hàm là \chuyencode{size} và \chuyencode{length} để xuất ra kích cỡ ma trận hoặc vectơ cho trước. Xét ví dụ cụ thể sau:
+\begin{lstlisting}
+	>> A=[1,2,3,4;5,6,7,8]
+	A =
+     	1     2     3     4
+     	5     6     7     8
+	>> s=size(A)
+	s =
+     	2     4
+\end{lstlisting}
+Hàm \chuyencode{size} xuất ra một mảng có hai giá trị, giá trị đầu là số dòng, giá trị sau là số cột của ma trận. Ta có thể lưu các giá trị đó vào mỗi biến riêng biệt như bên dưới đây:
+\begin{lstlisting}
+	>> [r,c]=size(A)
+	r =
+     	2
+	c =
+     	4
+\end{lstlisting}
+Trong đó biến r lưu số dòng của ma trận, biến c lưu số cột của ma trận. Còn hàm \chuyencode{length} sẽ so sánh số hàng và số cột, sau đó trả về giá trị lớn nhất. Cụ thể như sau:
+\begin{lstlisting}
+	>> length(A)
+	ans =
+     	4
+\end{lstlisting}
+Vì ma trận A có số cột là 4, đồng thời là giá trị lớn nhất so với số hàng là 2 nên hàm \chuyencode{length} trả về giá trị 4.
 \subsubsection{Mảng nhiều chiều}
+
 \subsection{Các thao tác với mảng}
 \subsubsection{Tạo phương trình tuyến tính}
 \subsubsection{Các hàm ma trận}
