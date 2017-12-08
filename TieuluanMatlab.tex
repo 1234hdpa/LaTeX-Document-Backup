@@ -356,7 +356,7 @@ Tạo một vectơ cột a có giá trị sau $a=(1,2,3,4)$. Cú pháp thực hi
 \end{example}
 Điểm khác biệt trong lúc tạo một vectơ cột là các phần tử ngăn cách nhau bởi dấu chấm phẩy ";". Ngoài ra ta hoàn toàn có thể dùng toán tử chuyển vị trong MATLAB (sử dụng dấu nháy đơn (') để thực hiện) sẽ cho ra kết quả tương tự. Ví dụ dưới đây sẽ minh hoạ rõ hơn:
 \begin{example}
-Tạo vectơ a có giá trị $a=(2,4,1,3)$, tiếp tục tạo vectơ b là chuyển vị của vectơ a và tạo vectơ c là chuyển vị của vectơ b.
+Tạo vectơ a có giá trị $a=(2,4,1,3)$, tiếp tục tạo vectơ b là chuyển vị của vectơ a và tạo vectơ c là chuyển vị của vectơ b. Cú pháp như sau:
 \begin{lstlisting}
 	>> a=[2;4;1;3]
 	a =
@@ -375,10 +375,385 @@ Tạo vectơ a có giá trị $a=(2,4,1,3)$, tiếp tục tạo vectơ b là chu
      	3
 \end{lstlisting}
 \end{example}
-
+Ngoài ra, người dùng còn có thể tạo ma trận với nhiều hàng, cột theo ý muốn. Để ngăn cách các phần tử trong một hàng ta dùng dấu phẩy (,) và để ngăn cách giữa các hàng ta dùng dấu chấm phẩy (;). Xét ví dụ tạo một ma trận có 3 hàng 4 cột như bên dưới đây:
+\begin{lstlisting}
+	>> A=[3,4,1,2;5,3,7,9;2,0,1,1]
+	A =
+     	3     4     1     2
+     	5     3     7     9
+     	2     0     1     1
+\end{lstlisting}
+\textbf{Lưu ý:} Khi nhập vào ma trận thì giữa các hàng số phần tử phải bằng nhau, nếu không chương trình sẽ báo lỗi.\\
+Sau khi tạo một ma trận, MATLAB cho phép người dùng thực hiện phép toán giữa ma trận với số đơn bao gồm phép cộng, trừ, nhân, chia ma trận đó với số đơn. Xét ví dụ dưới đây trình bày cú pháp thực hiện các phép tính ma trận với số đơn.\\
+\begin{example}
+Tạo ma trận $A=\begin{bmatrix} 1 & 2 & 3 & 4 \\ 5 & 6 & 7 & 8 \\ 9 & 10 & 11 & 12 \end{bmatrix}$. Cú pháp như sau:\\
+\begin{lstlisting}
+	>> A=[1,2,3,4;5,6,7,8;9,10,11,12]
+	A =
+     	1     2     3     4
+     	5     6     7     8
+     	9    10    11    12
+\end{lstlisting}
+\begin{itemize}
+	\item Trừ các phần tử của ma trận đi 2.
+\begin{lstlisting}
+	>> A-2
+	ans =
+       -1     0     1     2
+     	  3     4     5     6
+     	  7     8     9    10
+\end{lstlisting}
+	\item Nhân tất cả các phần từ của ma trận với 2, sau đó trừ đi 1.
+\begin{lstlisting}
+	>> A*2-1
+	ans =
+     	  1     3     5     7
+     	  9    11    13    15
+    	 17    19    21    23
+\end{lstlisting}
+	\item Cộng các phần tử của mảng cho 3 rồi chia cho 3.
+\begin{lstlisting}
+	>> (A+3)/3
+	ans =
+    	1.3333    1.6667    2.0000    2.3333
+    	2.6667    3.0000    3.3333    3.6667
+    	4.0000    4.3333    4.6667    5.0000
+\end{lstlisting}
+\end{itemize}
+\end{example}
+Với nhiều ma trận được tạo ra, MATLAB hỗ trợ các phép toán giữa ma trận với ma trận. Tuy nhiên yêu cầu các ma trận phải có kích cỡ như nhau mới thực hiện được phép cộng, phép trừ, phép nhân, chia tương ứng giữa các phần tử của hai mảng. Vậy đối với hai ma trận không cùng cỡ thì sao? Ta chỉ dùng được phép nhân\_chấm và phép chia\_chấm mà thôi. Xét ví dụ cụ thể dưới đây:
+\begin{example}
+Tạo ma trận $A=\begin{bmatrix} 1 & 2 & 3 & 4 \\ 5 & 6 & 7 & 8 \\ 9 & 10 & 11 & 12 \end{bmatrix}$ và ma trận $B=\begin{bmatrix} 1 & 1 & 1 & 1 \\ 2 & 2 & 2 & 2 \\ 3 & 3 & 3 & 3 \end{bmatrix}$ sau đó thực hiện các phép tính sau:
+\begin{lstlisting}
+	>> A=[1,2,3,4;5,6,7,8;9,10,11,12]
+	A =
+     	1     2     3     4
+     	5     6     7     8
+     	9    10    11    12
+	>> B=[1,1,1,1;2,2,2,2;3,3,3,3]
+	B =
+     	1     1     1     1
+     	2     2     2     2
+     	3     3     3     3
+\end{lstlisting}
+\begin{itemize}
+	\item Cộng hai ma trận A và B.
+\begin{lstlisting}
+	>> A+B
+	ans =
+     	 2     3     4     5
+     	 7     8     9    10
+    	12    13    14    15
+\end{lstlisting}
+	\item Dùng kết quả trên trừ đi ma trận B.
+\begin{lstlisting}
+	>> ans-B
+	ans =
+     	1     2     3     4
+     	5     6     7     8
+     	9    10    11    12
+\end{lstlisting}
+	\item Nhân ma trận A với 2, sau đó lấy kết quả trừ đi ma trận B.
+\begin{lstlisting}
+	>> 2*A-B
+	ans =
+     	 1     3     5     7
+     	 8    10    12    14
+    	15    17    19    21
+\end{lstlisting}
+	\item Nhân tương ứng các phần tử của ma trận A với các phần tử của ma trận B.
+\begin{lstlisting}
+	>> A.*B
+	ans =
+     	 1     2     3     4
+    	10    12    14    16
+    	27    30    33    36
+\end{lstlisting}
+	\item Chia phải tương ứng các phần tử của ma trận A với các phần tử của ma trận B.
+\begin{lstlisting}
+	>> A./B
+	ans =
+    	1.0000    2.0000    3.0000    4.0000
+    	2.5000    3.0000    3.5000    4.0000
+    	3.0000    3.3333    3.6667    4.0000
+\end{lstlisting}
+	\item Chia trái tương ứng các phần tử của ma trận A với các phần tử của ma trận B.
+\begin{lstlisting}
+	>> B.\A
+	ans =
+    	1.0000    2.0000    3.0000    4.0000
+    	2.5000    3.0000    3.5000    4.0000
+    	3.0000    3.3333    3.6667    4.0000
+\end{lstlisting}
+	\item Luỹ thừa với số mũ là  2 cho các phần tử của ma trận A.
+\begin{lstlisting}
+	>> A.^2
+	ans =
+     	 1     4     9    16
+    	25    36    49    64
+    	81   100   121   144
+\end{lstlisting}
+	\item Luỹ thừa với số mũ là -1 cho các phần tử của ma trận A.
+\begin{lstlisting}
+	>> A.^-1
+	ans =
+    	1.0000    0.5000    0.3333    0.2500
+    	0.2000    0.1667    0.1429    0.1250
+    	0.1111    0.1000    0.0909    0.0833
+\end{lstlisting}
+	\item Các phần tử của ma trận A là số mũ của 3.
+\begin{lstlisting}
+	>> 3.^A
+	ans =
+           3           9          27          81
+         243         729        2187        6561
+       19683       59049      177147      531441
+\end{lstlisting}
+	\item Các phần tử của ma trận A được luỹ thừa với số mũ tương ứng với các phần tử của ma trận B trừ đi 1.
+\begin{lstlisting}
+	>> A.^(B-1)
+	ans =
+     	1     1     1     1
+     	5     6     7     8
+    	81   100   121   144
+\end{lstlisting}
+\end{itemize}
+\end{example}
 \subsubsection{Mảng có phần tử là 0 hoặc 1}
+MATLAB cung cấp các hàm tạo ra ma trận với các phần tử có giá trị là 0 hoặc 1. Xét ví dụ cụ thể sau đây:
+\begin{example}
+Tạo các ma trận đặc biệt sau:
+\begin{itemize}
+	\item Ma trận có 3 hàng 3 cột với các phần tử là 1.
+\begin{lstlisting}
+	>> ones(3)
+	ans =
+     	1     1     1
+     	1     1     1
+     	1     1     1
+\end{lstlisting}
+	\item Tạo ma trận 2 hàng, 5 cột với các phần tử là 0.
+\begin{lstlisting}
+	>> zeros(2,5)
+	ans =
+     	0     0     0     0     0
+     	0     0     0     0     0
+\end{lstlisting}
+	\item Tạo ma trận với các phần tử là 1, kích cỡ ma trận sẽ tạo bằng với kích cỡ ma trận A ở \textbf{Ví dụ 13}.\\
+B1: Xét hàm trả về kích cỡ ma trận A cho trước.
+\begin{lstlisting}
+	>> size(A)
+	ans =
+     	3     4
+\end{lstlisting}
+B2: Tạo ma trận theo kích cỡ yêu cầu.
+\begin{lstlisting}
+	>> ones(size(A))
+	ans =
+     	1     1     1     1
+     	1     1     1     1
+     	1     1     1     1
+\end{lstlisting}
+\end{itemize}
+\textbf{Lưu ý:} Khi ta dùng \chuyencode{ones(n), zeros(n)} với số n do ta đặt, MATLAB sẽ tạo ra ma trận vuông với số hàng và số cột là n. Đối với trường hợp dùng hàm \chuyencode{ones(r,c), zeros(r,c)} thì r sẽ là số hàng, c sẽ là số cột của ma trận.
+\end{example}
 \subsubsection{Thao tác đối với mảng}
+MATLAB cho phép người dùng thao tác trên ma trận hay mảng cho trước, các thao tác cơ bản gồm chèn vào, lấy ra, sắp xếp lại bộ phần tử con bằng các chỉ số của các phần tử. Xét các ví dụ cụ thể sau:\\
+\begin{example}
+Cho ma trận $A=\begin{bmatrix} 1 & 2 & 3 \\ 4 & 5 & 6 \\ 7 & 8 & 9 \end{bmatrix}$, thực hiện các thao tác sau đây.\\
+\begin{lstlisting}
+	>> A=[1,2,3;4,5,6;7,8,9]
+	A =
+     	1     2     3
+     	4     5     6
+    	7     8     9
+\end{lstlisting}
+\begin{itemize}
+	\item Gán phần tử thứ 3, cột thứ 3 bằng 0.
+\begin{lstlisting}
+	>> A(3,3)=0
+	A =
+     	1     2     3
+     	4     5     6
+     	7     8     0
+\end{lstlisting}
+	\item Gán phần tử hàng thứ 2, cột thứ 6 bằng 1.
+\begin{lstlisting}
+	>> A(2,6)=1
+	A =
+     	1     2     3     0     0     0
+     	4     5     6     0     0     1
+     	7     8     0     0     0     0
+\end{lstlisting}
+	\item Gán tất cả các phần tử thuộc cột thứ 4 bằng 4.
+\begin{lstlisting}
+	>> A(:,4)=4
+	A =
+     	1     2     3     4     0     0
+     	4     5     6     4     0     1
+     	7     8     0     4     0     0
+\end{lstlisting}
+	\item Gán lại các giá trị ban đầu của ma trận A.
+\begin{lstlisting}
+	>> A=[1,2,3;4,5,6;7,8,9]
+	A =
+     	1     2     3
+     	4     5     6
+    	7     8     9
+\end{lstlisting}
+	\item Tạo ma trận B bằng cách đảo ngược các hàng của ma trận A.
+\begin{lstlisting}
+	>> B=A(3:-1:1,1:3)
+	B =
+     	7     8     9
+     	4     5     6
+     	1     2     3
+\end{lstlisting}
+Ngoài ra, ta cũng có thể dùng cách khác như sau (thay thế số hàng bằng dấu hai chấm (:)).
+\begin{lstlisting}
+	>> B=A(3:-1:1,:)
+	B =
+     	7     8     9
+     	4     5     6
+     	1     2     3
+\end{lstlisting}
+	\item Tạo ma trận C bằng các ghép ma trận A và cột thứ nhất, thứ ba của ma trận B vào bên phải ma trận A.
+\begin{lstlisting}
+	>> C=[A,B(:,[1,3])]
+	C =
+     	1     2     3     7     9
+     	4     5     6     4     6
+     	7     8     9     1     3
+\end{lstlisting}
+	\item Dùng ma trận C làm chỉ số để tạo ma trận B từ ma trận A.
+\begin{lstlisting}
+	>> C=[1,3]
+	C =
+     	1     3
+	>> B=A(C,C)
+	B =
+     	1     3
+     	7     9
+\end{lstlisting}
+	\item Tạo ma trận cột B từ ma trận A.
+\begin{lstlisting}
+	>> B=A(:)
+	B =
+     	1
+     	4
+     	7
+     	2
+     	5
+     	8
+     	3
+     	6
+     	9
+\end{lstlisting}
+	\item Chuyển ma trận B thành ma trận hàng ngang bằng toán tử chuyển vị chấm.
+\begin{lstlisting}
+	>> B=B'
+	B =
+     	1     4     7     2     5     8     3     6     9
+\end{lstlisting}
+	\item Gán ma trận B bằng ma trận A và loại bỏ cột thứ 2 của ma trận B.
+\begin{lstlisting}
+	>> B=A;
+	>> B(:,2)=[]
+	B =
+     	1     3
+     	4     6
+     	7     9
+\end{lstlisting}
+	\item Chuyển vị ma trận B và loại bỏ đi hàng thứ hai.
+\begin{lstlisting}
+	>> B=B'
+	B =
+     	1     4     7
+     	3     6     9
+	>> B(2,:)=[]
+	B =
+     	1     4     7
+\end{lstlisting}
+	\item Thay hàng thứ hai của ma trận A bằng ma trận B.
+\begin{lstlisting}
+	>> A(2,:)=B
+	A =
+     	1     2     3
+     	1     4     7
+     	7     8     9
+\end{lstlisting}
+	\item Tạo ma trận B bằng cách tạo bốn cột giống cột thứ hai của ma trận A, số hàng vẫn giữ nguyên bằng số hàng của ma trận A.\\
+\begin{lstlisting}
+	>> B=A(:,[2,2,2,2])
+	B =
+     	2     2     2     2
+     	4     4     4     4
+     	8     8     8     8
+\end{lstlisting}
+\textbf{Lưu ý:} MATLAB không cho phép xoá đi một phần tử trong ma trận mà ta chỉ có thể xoá đi một cột hoặc một hàng. Ngoài ra, MATLAB cũng không cho phép người dùng gán một ma trận vào một ma trận khác mà cả hai không cùng chung về kích cỡ. Tuy nhiên, ta vẫn có thể gán hai hàng của ma trận A cho hai hàng của ma trận B khi ma trận A và B có cùng số cột. Ma trận B lúc này chỉ có một hàng nên khi thêm hàng thứ 3 và hàng thứ 4 thì hàng thứ hai của ma trận B được mặc định gồm các phần tử 0. Cụ thể như sau:
+\begin{lstlisting}
+	>> B=[1,4,7];
+	>> B(3:4,:)=A(2:3,:)
+	B =
+     	1     4     7
+     	0     0     0
+     	1     4     7
+     	7     8     9
+\end{lstlisting}
+	\item Tạo ma trận C với phần tử thứ 1 đến thứ 6 được gán bằng cột thứ 2 và cột thứ 3 của ma trận A.
+\begin{lstlisting}
+	>> C(1:6)=A(:,2:3)
+	C =
+     	2     4     8     3     7     9
+\end{lstlisting}
+\end{itemize}
+\end{example}
 \subsubsection{Tìm kiếm mảng con}
+Ngoài những thao tác thay đổi trên mảng hay ma trận, MATLAB còn hỗ trợ người dùng tìm kiếm một mảng con nào đó với biểu thức điều kiện cho trước trong một mảng lớn. Hàm được sử dụng trong phần này là \chuyencode{find}, hàm này sẽ trả về danh sách con chỉ số tại những phần tử mà biểu thức điều kiện được thoả mãn. Xét ví dụ cụ thể sau đây:
+\begin{example}
+Tạo mảng A chứa các số nguyên từ -3 đến 3. Cú pháp như sau:
+\begin{lstlisting}
+	>> A=-3:3
+	A =
+    	-3    -2    -1     0     1     2     3
+\end{lstlisting}
+\begin{itemize}
+	\item Tìm những vị trí trong mảng mà tại đó giá trị tuyệt đối của phần tử tại đó lớn hơn 1 và lưu vào mảng B.
+\begin{lstlisting}
+	>> B=find(abs(A)>1)
+	B =
+     	1     2     6     7
+\end{lstlisting}
+	\item Tạo mảng C, dùng các chỉ số trong mảng B.
+\begin{lstlisting}
+	>> C=A(B)
+	C =
+    	-3    -2     2     3
+\end{lstlisting}
+\end{itemize}
+Áp dụng hàm \chuyencode{find} trong ma trận $A=\begin{bmatrix} 1 & 2 & 3 \\ 4 & 5 & 6 \\ 7 & 8 & 9 \end{bmatrix}$ cụ thể như sau:
+\begin{lstlisting}
+	>> A=[1,2,3;4,5,6;7,8,9]
+	A =
+     	1     2     3
+     	4     5     6
+     	7     8     9
+	>> [i,j]=find(A>5)
+	i =
+     	3
+     	3
+     	2
+     	3
+	j =
+     	1
+     	2
+     	3
+     	3
+\end{lstlisting}
+Trong đó, i là chỉ số hàng, còn j là chỉ số cột. Giữa i và j có mối quan hệ tương ứng để chỉ những vị trí mà tại đó biểu thức điều kiện là đúng.\\
+\textbf{Lưu ý:} Khi MATLAB trả về kết quả chứa hai hoặc nhiều biến, ta cần đặt chúng trong dấu ngoặc vuông và ở bên trái dấu bằng. Cú pháp này khác với khi ta thực hiện với mảng, khi mà nếu [i,j] được đặt bên phải dấu bằng. 
+\end{example}
+
 \subsubsection{So sánh mảng}
 \subsubsection{Kích cỡ của mảng}
 \subsubsection{Mảng nhiều chiều}
