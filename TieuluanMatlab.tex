@@ -144,7 +144,7 @@ Một số biến đã được định nghĩa sẵn (một số còn được g
 	\item Biến Inf và -Inf (lưu ý ký tự I đứng đầu được viết hoa) dùng để biểu diễn dương và âm vô cực.
 	\item Ký tự NaN thể hiện cho "Not a Number", không phải là một số.
 \end{itemize}
-\textbf{Biến thông thường:} (hay còn được gọi là biến vô hướng) là biến đucợ người dùng định nghĩa bằng cách gián một giá trị cụ thể nào đó trực tiếp thông qua câu lệnh trong Command Windows.
+\textbf{Biến thông thường:} (hay còn được gọi là biến vô hướng) là biến được người dùng định nghĩa bằng cách gián một giá trị cụ thể nào đó trực tiếp thông qua câu lệnh trong Command Windows.
 \begin{example}
 \normalfont
 Tạo biến tên a chứa giá trị là số 10. Ta sẽ nhập lệnh vào Command Windows như sau:
@@ -192,11 +192,11 @@ Trong MATLAB, ta nên tập thói quen dùng các thư mục được sắp xế
 \end{itemize}
 \textbf{Nâng cao:} Với những người dùng thường xuyên lưu trữ chương trình hoặc các tập tin m-file ở các thư mục nằm nhiều nơi trên ổ đĩa, người dùng có thể thêm đường dẫn thư mục đó vào cửa sổ \textbf{Set Path (trong phần Enviroment)} để có thể chạy lệnh tính toán mà không cần quan tâm vị trí lưu trữ thư mục chứa các tập tin đó.
 \subsubsection{Scripts (Đoạn mã lệnh)}
-Scripts (còn được gọi là đoạn mã lệnh) là một tập tin chứa các câu lệnh chạy trong mội trường MATLAB. Các câu lệnh được lưu trữ trong tập tin này sẽ được thực thi theo trình tự.\\
+Scripts (còn được gọi là đoạn mã lệnh) là một tập tin chứa các câu lệnh chạy trong môi trường MATLAB. Các câu lệnh được lưu trữ trong tập tin này sẽ được thực thi theo trình tự.\\
 Scripts được viết trong cửa sổ MATLAB Editor tích hợp sẵn trong MATLAB và được lưu trên ổ đĩa dưới dạng các tập tin có đuôi mở rộng là .m, dung lượng thường không quá 100MB. Ngoài ra, ta hoàn toàn có thể dùng một công cụ soạn thảo cơ bản như \textbf{Notepad} mặc định của Windows để tạo ra một tập tin đuôi .m nhưng yêu cầu các câu lệnh trong đó phải đúng và thực thi được trong môi trường MATLAB.\\
 Các cách tạo một tập tin MATLAB (đuôi .m):
 \begin{itemize}
-	\item Từ Command Windows gõ câu lệnh với cú pháp \chuyencode{edit tenfile.m}, trong đó ta thay thế \chuyencode{tenfile.m} bằng tên tập tin muốn tạo. Sau đó chọn OK trong cửa sổ xác nhận tạo tập tin tenfile.m.
+	\item Từ Command Windows gõ câu lệnh với cú pháp \chuyencode{edit tenfile.m}, trong đó ta thay thế \chuyencode{tenfile.m} bằng tên tập tin muốn tạo. Sau đó chọn OK trong cửa sổ xác nhận tạo tập tin \chuyencode{tenfile.m}.
 	\item Chọn vào biểu tượng \textbf{New Script} trong khu vực \textbf{File} hoặc chọn \menu{File > New > Script} đều được. Sau khi cửa sổ soạn thảo đã mở, ta chọn biểu tượng \textbf{Save} trong khu vực File và tiến hành đặt tên cho tập tin cùng với việc chọn khu vực lưu trữ.
 \begin{center}
 	\begin{figure}[htp]
@@ -902,10 +902,223 @@ Trong đó biến r lưu số dòng của ma trận, biến c lưu số cột c�
 \end{lstlisting}
 Vì ma trận A có số cột là 4, đồng thời là giá trị lớn nhất so với số hàng là 2 nên hàm \chuyencode{length} trả về giá trị 4.
 \subsubsection{Mảng nhiều chiều}
-
+Ta sẽ thực hiện tạo các mảng hai chiều a, b, c sau đó dùng lệnh \chuyencode{cat} để ghép các mảng này lại với nhau thành một mảng d có hai hàng, hai cột và ba trang. Trong đó mảng a lưu trữ ở trang 1, mảng b được lưu ở trang 2 và mảng c được lưu trữ ở trang 3. Các trang của mảng được xếp thứ tự từ trái sang phải trong câu lệnh của cú pháp \chuyencode{cat}. Dưới đây là phần cú pháp:
+\begin{lstlisting}
+	>> a=[1,0;0,1]
+	a =
+     		1     0
+     		0     1
+	>> b=[2,2;2,2]
+	b =
+     		2     2
+     		2     2
+	>> c=[0,3;3,0]
+	c =
+     		0     3
+     		3     0
+	>> d=cat(3,a,b,c)
+	d(:,:,1) =
+     		1     0
+     		0     1
+	d(:,:,2) =
+     		2     2
+     		2     2
+	d(:,:,3) =
+     		0     3
+     		3     0
+	>> size(d)
+	ans =
+     		2     2     3
+\end{lstlisting}
+\textbf{Lưu ý:} Các phép tính trên những ma trận hay mảng trước đó đều có thể áp dụng vào mảng nhiều chiều bình thường.
 \subsection{Các thao tác với mảng}
 \subsubsection{Tạo phương trình tuyến tính}
+Giải phương trình tuyến tính bằng MATLAB gồm nhiều bước gồm tạo ma trận từ phương trình, kiểm tra định thức ma trận. Sau đó dựa vào kết quả định thức để chọn hướng giải tiếp theo. Ví dụ dưới dây sẽ trình bày rõ hơn các bước thực hiện giải một phương trình tuyến tính.
+\begin{example}
+Giải phương trình sau dưới dạng ma trận:
+\begin{center}
+	$\begin{bmatrix} 1 & 2 & 3 \\ 4 & 5 & 6 \\ 7 & 8 & 0 \end{bmatrix}.\begin{bmatrix} { x }_{ 1 } \\ { x }_{ 2 } \\ { x }_{ 3 } \end{bmatrix}=\begin{bmatrix} 366 \\ 804 \\ 351 \end{bmatrix}$\\
+	$A.x=b$
+\end{center}
+\begin{itemize}
+	\item Trước tiên nhập vào ma trận A và b.
+\begin{lstlisting}
+	>> A=[1,2,3;4,5,6;7,8,0]
+	A =
+     	1     2     3
+     	4     5     6
+     	7     8     0
+	>> b=[366;804;315]
+	b =
+   	366
+   	804
+   	315
+\end{lstlisting}
+	\item Kiểm tra định thức của ma trận.
+\begin{lstlisting}
+	>> det(A)
+	ans =
+   	27.0000
+\end{lstlisting}
+	\item Tạo ma trận chuyển dạng $x=A^{-1}.b$ ta được kết quả.
+\begin{lstlisting}
+	>> x=inv(A)*b
+	x =
+   	29.0000
+   	14.0000
+  		103.0000
+\end{lstlisting}
+	\item Phương pháp khác, ta dùng toán tử chia ma trận trái.
+\begin{lstlisting}
+	>> x=A\b
+	x =
+   	29.0000
+   	14.0000
+  		103.0000
+\end{lstlisting}
+\textbf{Lưu ý:} Với phương pháp thứ hai được ưu tiên sử dụng vì dùng ít phép toán và thời gian thực thi nhanh hơn. Nếu thực hiện các lệnh mà MATLAB không tìm thấy nghiệm phù hợp sẽ báo lỗi tính toán.
+\end{itemize}	
+\end{example}
+\begin{example}
+Giải phương trình có số phương trình nhiều hơn số nghiệm sau:\\
+\begin{center}
+	$\begin{bmatrix} 1 & 2 & 3 \\ 4 & 5 & 6 \\ 7 & 8 & 0 \\ 2 & 5 & 8 \end{bmatrix}.\begin{bmatrix} { x }_{ 1 } \\ { x }_{ 2 } \\ { x }_{ 3 } \end{bmatrix}=\begin{bmatrix} 366 \\ 804 \\ 351 \\ 514 \end{bmatrix}$
+\end{center}
+\begin{itemize}
+	\item Nhập phương trình với 4 phương trình và 3 biến.
+\begin{lstlisting}
+	>> A=[1,2,3;4,5,6;7,8,0;2,5,8]
+	A =
+     	1     2     3
+     	4     5     6
+     	7     8     0
+     	2     5     8
+	>> b=[366;804;315;514]
+	b =
+   	366
+   	804
+   	315
+   	514
+\end{lstlisting}
+	\item Áp dụng phương pháp vuông nhỏ nhất.
+\begin{lstlisting}
+	>> x=A\b
+	x =
+  		251.9818
+ 	  -181.1091
+  		118.9273
+	>> res=A*x-b
+	res =
+ 	  -119.4545
+   	11.9455
+    	0.0000
+   	35.8364
+\end{lstlisting}
+\end{itemize}	
+\end{example}
+Khi giải phương trình có số phương trình ít hơn số biến thì số nghiệm của phương trình được MATLAB tính theo hai cách, phương pháp dùng toán tử chia và phương pháp tiêu chuẩn cực tiểu.\\
+\begin{example}
+Giải phương trình có số phương trình ít hơn số nghiệm sau:
+\begin{center}
+	$\begin{bmatrix} 1 & 2 & 3 & 2 \\ 4 & 5 & 6 & 5 \\ 7 & 8 & 0 & 8 \end{bmatrix}.\begin{bmatrix} { x }_{ 1 } \\ { x }_{ 2 } \\ { x }_{ 3 } \\ { x }_{ 4 } \end{bmatrix}=\begin{bmatrix} 366 \\ 804 \\ 351 \end{bmatrix}$
+\end{center}
+\begin{itemize}
+	\item Tạo ma trận của phương trình bốn biến.
+\begin{lstlisting}
+	>> A=[1,4,7,2;2,5,8,5;3,6,0,8]
+	A =
+     	1     4     7     2
+     	2     5     8     5
+     	3     6     0     8
+   >> b=[366;804;351]
+	b =
+   	366
+   	804
+   	351
+\end{lstlisting}
+	\item Phương pháp với số phần tử 0 cực đại.
+\begin{lstlisting}
+	>> x=A\b
+	x =
+     0
+ 	 -165.9000
+     99.0000
+  	  168.3000
+\end{lstlisting}
+	\item Tìm kiếm giải pháp tiêu chuẩn nhỏ nhất.
+\begin{lstlisting}
+	>> xn=pinv(A)*b
+	xn =
+   	30.8182
+ 	  -168.9818
+   	99.0000
+  	   159.0545
+\end{lstlisting}
+	\item Tiêu chuẩn O\_clit với các phần tử 0.
+\begin{lstlisting}
+	>> norm(x)
+	ans =
+  		256.2200
+\end{lstlisting}
+	\item Giải pháp tiêu chuẩn nhỏ nhất.
+\begin{lstlisting}
+	>> norm(xn)
+	ans =
+  		254.1731
+\end{lstlisting}
+\end{itemize}
+\end{example}
 \subsubsection{Các hàm ma trận}
+Để giải phương trình tuyến tính, MATLAB cung cấp các hàm trợ giúp sau:
+%Nhóm bảng lại
+\begin{table}[]
+\centering
+\label{my-label}
+\def\arraystretch{1.2} %Tăng khoảng rộng giữa các dòng trong bảng
+\begin{tabular}{|l|l|}
+\cline{1-2}
+\multicolumn{2}{|c|}{Các hàm ma trận}\\ \cline{1-2}
+\chuyencode{balance(A)}                & Cân bằng để tăng độ chính xác         \\ \cline{1-2}
+\chuyencode{cdf2rdf(A)}                & Chuyển từ dạng số phức chéo sang dạng số thực chéo         \\ \cline{1-2}
+\chuyencode{chol(A)}                   & Tìm thừa số Cholesky         \\ \cline{1-2}
+\chuyencode{cholinc(A,droptol)}        & Thừa số Cholesky không đầy đủ         \\ \cline{1-2}
+\chuyencode{cond(A)}                   & Số điều kiện ma trận         \\ \cline{1-2}
+\chuyencode{condesk(A)}                & Ước lượng số điều kiện ma trận theo tiêu chuẩn 1         \\ \cline{1-2}
+\chuyencode{det(A)}                    & Định thức ma trận         \\ \cline{1-2}
+\chuyencode{expm(A)}                   & Ma trận theo luật mũ         \\ \cline{1-2}
+\chuyencode{expm1(A)}                  & Bổ sung M\_file của expm         \\ \cline{1-2}
+\chuyencode{expm2(A)}                  & Ma trận theo luật hàm mũ, dùng thứ tự Taylor         \\ \cline{1-2}
+\chuyencode{funm(A,'fun')}             & Tính toán hàm ma trận chung         \\ \cline{1-2}
+\chuyencode{hess(A)}                   & Mẫu Hessenberg        \\ \cline{1-2}
+\chuyencode{inv(A)}                    & Ma trận chuyển vị         \\ \cline{1-2}
+\chuyencode{logm(A)}                   & Ma trận logarithm         \\ \cline{1-2}
+\chuyencode{lu(A)}                     & Tìm thừa số với phép khử Gaussian         \\ \cline{1-2}
+\chuyencode{luinc(A,droptol)}          & Thừa số LU không đầy đủ         \\ \cline{1-2}
+\chuyencode{norm(A)}                   & Ma trận và vectơ tiêu chuẩn         \\ \cline{1-2}
+\chuyencode{norm(A,1)}                 & Tiêu chuẩn 1         \\ \cline{1-2}
+\chuyencode{norm(A,2)}                 & Tiêu chuẩn 2         \\ \cline{1-2}
+\chuyencode{norm(A,inf)}               & Vô cùng        \\ \cline{1-2}
+\chuyencode{norm(A,p)}                 & Tiêu chuẩn P (chỉ đối với vectơ)         \\ \cline{1-2}
+\chuyencode{norm(A,'fro')}             & Tiêu chuẩn F         \\ \cline{1-2}
+\chuyencode{normest(A)}                & Tiêu chuẩn 2 ước lượng cho ma trận lớn         \\ \cline{1-2}
+\chuyencode{null(A)}                   & Khoảng rỗng         \\ \cline{1-2}
+\chuyencode{orth(A)}                   & Tính trực giao         \\ \cline{1-2}
+\chuyencode{poly(A)}                   & Đa thức đặc trưng        \\ \cline{1-2}
+\chuyencode{polyvalm(A)}               & Tính giá trị của ma trận        \\ \cline{1-2}
+\chuyencode{qr(A)}                     & Xác định trực giao tam giác        \\ \cline{1-2}
+\chuyencode{qrdelete(Q,R,j)}           & Xoá cột từ thừa số QR        \\ \cline{1-2}
+\chuyencode{qrinsert(Q,R,j,x)}         & Chèn cột trong thừa số QR        \\ \cline{1-2}
+\chuyencode{rank(A)}                   & Số của hàng hoặc cột độc lập          \\ \cline{1-2}
+\chuyencode{rcond(A)}                  & Ước lượng điều kiện thuận nghịch          \\ \cline{1-2}
+\chuyencode{sqrtm(A)}                  & Ma trận gốc bình phương          \\ \cline{1-2}
+\chuyencode{subspace(A,B)}             & Góc giữa hai điểm          \\ \cline{1-2}
+\chuyencode{svd(A)}                    & Phân tích giá trị đơn          \\ \cline{1-2}
+\chuyencode{svds(A,K)}                 & Một số các giá trị đơn          \\ \cline{1-2}
+\chuyencode{trace(A)}                  & Tổng các phần tử chéo          \\ \cline{1-2}
+\end{tabular}
+\end{table}
+
+
 \subsubsection{Các ma trận đặc biệt}
 %Chương 3:
 \section{Vòng lặp điều khiển}
