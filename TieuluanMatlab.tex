@@ -1070,11 +1070,9 @@ Giải phương trình có số phương trình ít hơn số nghiệm sau:
 \end{example}
 \subsubsection{Các hàm ma trận}
 Để giải phương trình tuyến tính, MATLAB cung cấp các hàm trợ giúp sau:
-%Nhóm bảng lại
-\begin{table}[]
+\begin{table}[htp]
 \centering
-\label{my-label}
-\def\arraystretch{1.2} %Tăng khoảng rộng giữa các dòng trong bảng
+\label{bang1}
 \begin{tabular}{|l|l|}
 \cline{1-2}
 \multicolumn{2}{|c|}{Các hàm ma trận}\\ \cline{1-2}
@@ -1117,9 +1115,104 @@ Giải phương trình có số phương trình ít hơn số nghiệm sau:
 \chuyencode{trace(A)}                  & Tổng các phần tử chéo          \\ \cline{1-2}
 \end{tabular}
 \end{table}
-
-
 \subsubsection{Các ma trận đặc biệt}
+MATLAB cung cấp một số các ma trận đặc biệt và thường được ứng dụng rộng rãi trong các phép toán. Đầu tiên ta thiết lập một ma trận A và ma trận b chứa các giá trị lớn hơn 10 trong ma trận A như mẫu dưới đây:
+\begin{lstlisting}
+	>> A=[1,2,3;4,5,6];
+	>> b=find(A>10)
+	b =
+  		0x1 empty double column vector
+\end{lstlisting}
+\begin{itemize}
+	\item Ma trận 0 có 3 hàng và 3 cột.
+\begin{lstlisting}
+	>> zeros(3)
+	ans =
+     	0     0     0
+     	0     0     0
+     	0     0     0
+\end{lstlisting}	
+	\item Ma trân 1 có 2 hàng và 4 cột.
+\begin{lstlisting}
+	>> ones(2,4)
+	ans =
+     	1     1     1     1
+     	1     1     1     1
+\end{lstlisting}
+	\item Ma trận 3x3 với các phần tử đều là $\pi$.
+\begin{lstlisting}
+	>> zeros(3)+pi
+	ans =
+    	3.1416    3.1416    3.1416
+    	3.1416    3.1416    3.1416
+    	3.1416    3.1416    3.1416
+\end{lstlisting}
+	\item Ma trận 3x1 gồm các phần tử là số cung cấp bởi hàm random giữa 0 và 1.
+\begin{lstlisting}
+	>> rand(3,1)
+	ans =
+    	0.8147
+    	0.9058
+    	0.1270
+\end{lstlisting}
+	\item Ma trận 2x2 với các phần tử random có giá trị trung bình là 0.
+\begin{lstlisting}
+	>> randn(2)
+	ans =
+    	0.8622   -1.3077
+    	0.3188   -0.4336
+\end{lstlisting}
+	\item Ma trận đồng nhất 3x3.
+\begin{lstlisting}
+	>> eye(3)
+	ans =
+     	1     0     0
+     	0     1     0
+     	0     0     1
+\end{lstlisting}
+	\item Ma trận đồng nhất 3x2.
+\begin{lstlisting}
+	>> eye(3,2)
+	ans =
+     	1     0
+     	0     1
+     	0     0
+\end{lstlisting}
+	\item Dùng hàm size để tạo một ma trận khác cùng kích cỡ với ma trận cho trước.
+\begin{lstlisting}
+	>> ones(size(A))
+	ans =
+     	1     1     1
+     	1     1     1
+\end{lstlisting}
+\end{itemize}
+Sau đây là bảng tổng hợp một số ma trận thường dùng:
+\begin{table}[htp]
+\centering
+\label{bang2}
+\begin{tabular}{|l|l|}
+\hline
+\multicolumn{2}{|c|}{Các ma trận đặt biệt}                                      \\ \hline
+\chuyencode{{[}{]}}    & Ma trận rỗng                                                        \\ \hline
+\chuyencode{compan}    & Tạo ma trận rỗng                                                    \\ \hline
+\chuyencode{eye}       & Ma trận đồng nhất                                                   \\ \hline
+\chuyencode{gallery}   & Ma trận kiểm tra nhỏ vài phần tử                                    \\ \hline
+\chuyencode{hadamard}  & Ma trận Hadamard                                                    \\ \hline
+\chuyencode{hankel}    & Ma trận Hankel                                                      \\ \hline
+\chuyencode{hilb}      & Ma trận Hilbert                                                     \\ \hline
+\chuyencode{invhilb}   & Chuyển thành ma trận Hilbert                                        \\ \hline
+\chuyencode{magic}     & Ma trận vuông, giá trị các phần tử bằng từ 1 đến giá trị số phần tử \\ \hline
+\chuyencode{ones}      & Ma trận 1                                                           \\ \hline
+\chuyencode{pascal}    & Ma trận tam giác Pascal                                             \\ \hline
+\chuyencode{rand}      & Ma trận với các phần tử ngẫu nhiên từ 0 đến 1                       \\ \hline
+\chuyencode{randn}     & Ma trận ngẫu nhiên thông thường với gái trị trung bình bằng 0       \\ \hline
+\chuyencode{rosser}    & Ma trận kiểm tra đối xứng trục chính                                \\ \hline
+\chuyencode{toeplitz}  & Ma trận Toeplitz                                                    \\ \hline
+\chuyencode{vander}    & Ma trận Vandermond                                                  \\ \hline
+\chuyencode{wilkinson} & Ma trận kiểm tra Wilkinson                                          \\ \hline
+\chuyencode{zeros}     & Ma trận không                                                       \\ \hline
+\end{tabular}
+\end{table}
 %Chương 3:
 \section{Vòng lặp điều khiển}
 \subsection{Vòng lặp for}
