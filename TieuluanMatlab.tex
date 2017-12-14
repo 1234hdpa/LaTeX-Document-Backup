@@ -1215,9 +1215,148 @@ Sau đây là bảng tổng hợp một số ma trận thường dùng:
 \end{table}
 %Chương 3:
 \section{Vòng lặp điều khiển}
+Đôi lúc trong tính toán bạn phải thao tác cùng một bước rất nhiều lần. Để tránh phải lặp lại công việc nhàm chán đó MATLAB cung cấp các dạng vòng lặp điều khiển là: vòng lặp \chuyencode{for}, vòng lặp \chuyencode{while}. Không chỉ dùng các vòng lặp để tối ưu các bước làm, MATLAB còn hỗ trợ điều khiển các dòng lệnh với đặc điểm \textbf{chỉ thực thi lệnh khi thoả mãn điều kiện cho trước} qua cấu trúc \chuyencode{if-else-end} và cấu trúc \chuyencode{switch-case}.
 \subsection{Vòng lặp for}
+Vòng lặp \chuyencode{for} cho phép một nhóm lệnh thực hiện lặp đi lặp lại một số lần cố định. Cú pháp vòng lặp for như sau:
+\begin{lstlisting}
+	for x = array
+		commands %Nhom cau lenh
+	end
+\end{lstlisting}
+\begin{example}
+Dùng vòng lặp \chuyencode{for} để tạo mảng x chứa 10 phần tử, các phần tử được tính bằng cách lấy thứ tự phần tử trong mảng nhân với 2 và cộng với số $\pi$. Cú pháp thực hiện như sau:
+\begin{lstlisting}
+	>> for n=1:10
+	x(n)=n*2+pi;
+	end
+	>> x
+	x =
+    	5.1416    7.1416    9.1416   11.1416   13.1416   15.1416   17.1416   19.1416   21.1416   23.1416
+\end{lstlisting}
+\end{example}
+\textbf{Lưu ý:} Để thực hiện nhập nhiều dòng lệnh trong MATLAB, ta sử dụng tổ hợp phím \keys{Shift+Enter} thay vì dùng phím \keys{Enter} để xuống dòng.\\
+Ở ví dụ trên ta đã tạo mảng n bằng cú pháp \chuyencode{n=1:10}, ngoài cách làm trên ta có thể chọn một mảng hay ma trận bất kỳ nào đặt vào biến chạy vòng lặp \chuyencode{for}. Ví dụ như bên dưới đây:
+\begin{lstlisting}
+	>> data=[3,9,45,6;7,16,-1,5]
+	data =
+     	3     9    45     6
+     	7    16    -1     5
+	>> for n = data
+	x=n(1)-n(2)
+	end
+	x =
+    	-4
+	x =
+    	-7
+	x =
+    	46
+	x =
+     	1
+\end{lstlisting}
+\textbf{Lưu ý:} Với cách làm này, các phần tử sẽ được MATLAB chọn theo thứ tự \textbf{từ trên xuống dưới} sau đó \textbf{từ cột trái sang cột phải}. Ngoài ra trong nhiều trường hợp ta nên ưu tiên tính toán trực tiếp trên mảng thay vì lạm dụng vòng lặp \chuyencode{for} bởi vì thời gian tính toán sẽ nhanh hơn và số câu lệnh sẽ được giảm bớt.
+Vòng lặp \chuyencode{for} còn thể lồng vào nhau như ví dụ bên dưới đây:
+\begin{lstlisting}
+	>> for n=1:5
+	for m=5:-1:1
+	A(n,m)=n^2+m^2;
+	end
+	disp(n)
+	end
+     	1
+     	2
+     	3
+     	4
+     	5
+	>> A
+	A =
+     	2     5     10    17    26
+     	5     8     13    20    29
+    	10    13    18    25    34
+    	17    20    25    32    41
+    	26    29    34    41    50
+\end{lstlisting}
+Cấu trúc mảng \chuyencode{for} sẽ chạy nhanh hơn nếu tất cả các giá trị mảng đã được tạo lập từ trước. Ví dụ ta tạo mảng x chứa 10 phần tử, rồi sau đó mới gọi lệnh \chuyencode{for} để thực hiện tạo phần tử trên mạng x đó sẽ giúp tốc độ thực thi lệnh được tăng lên. Cú pháp như sau:
+\begin{lstlisting}
+	>> x=zeros(1,10);
+	>> for n=1:10
+	x(n)=sin(n*pi/10);
+	end
+	>> x
+	x =
+    	0.3090    0.5878    0.8090    0.9511    1.0000    0.9511    0.8090    0.5878    0.3090    0.0000
+\end{lstlisting}
 \subsection{Vòng lặp while}
+Vòng lặp \chuyencode{while} thực hiện lặp lại một nhóm lệnh một số lần cố định, nhưng không biết trước được số lần lặp lại. Cú pháp của vòng lặp \chuyencode{while} như sau:
+\begin{lstlisting}
+	while Bieu_thuc_dieu_kien
+		Nhom_cau_lenh
+	end
+\end{lstlisting}
+Trong đó nhóm câu lệnh sẽ được thực thi khi biểu thức điều kiện vẫn còn đúng. Thông thường giá trị biểu thức điều kiện là một số nhưng nếu ta áp dụng cho cả mảng thì vẫn hợp lệ. Tuy nhiên, điều kiện để mảng được xem là đúng khi tất cả các phần tử trong mảng đều đúng.
+\begin{example}
+Tính giá trị đặc biệt eps của MATLAB, nó là một số dương nhỏ nhất có thể cộng với 1 để được một số lớn hơn 1. Cú pháp như sau:
+\begin{lstlisting}
+	>> num=0; ESP=1;
+	>> while(1+ESP)>1
+	ESP=ESP/2;
+	num=num+1;
+	end
+	>> num
+	num =
+    	53
+	>> ESP=2*ESP
+	ESP =
+   	2.2204e-16
+\end{lstlisting}	
+\end{example}
 \subsection{Cấu trúc if-else-end}
+Khi cần thực hiện một nhóm câu lệnh đúng điều kiện cho trước ta dùng cấu trúc \chuyencode{if-else-end}. Với cú pháp \chuyencode{if-end} thì biểu thức điều kiện đúng các câu lệnh bên trong sẽ được thực thi, nếu điều kiện không đúng sẽ không thực thi nhóm lệnh bên trong. Cú pháp như sau:
+\begin{lstlisting}
+	if Bieu_thuc_dieu_kien
+		Nhom_cau_lenh
+	end
+\end{lstlisting}
+Đối với cú pháp \chuyencode{if-else-end} thì nếu biểu thức điều kiện đúng thì nhóm lệnh nằm giữa \chuyencode{if-else} sẽ được thực thi, ngược lại nếu biểu thức điều kiện sai thì nhóm lệnh nằm giữa \chuyencode{else-end} sẽ được thực thi. Cú pháp như sau:
+\begin{lstlisting}
+	if Bieu_thuc_dieu_kien
+		Nhom_cau_lenh_khi_dk_dung
+	else
+		Nhom_cau_lenh_khi_dk_sai
+	end
+\end{lstlisting}
+\begin{example}
+Sử dụng cấu trúc \chuyencode{if-end} để tính giá trái cam. Giá mỗi trái cam là 4000 đồng, người mua cam cần tính tiền 20 quả cam, Nếu số lượng trái cam lớn hơn 5 trái, đơn giá được giảm 10\%. Cú pháp tính đơn giá như sau:
+\begin{lstlisting}
+	>> cam=20;
+	>> giagoc=cam*4000
+	giagoc =
+       80000
+	>> if cam>5
+	giagoc=(1-10/100)*giagoc;
+	end
+	>> giagoc
+	giagoc =
+       72000
+\end{lstlisting}
+\end{example}
+Khi có ba hoặc nhiều điều kiện thay đổi hơn ta dùng cú pháp \chuyencode{if-elseif-elseif-...-end} với mỗi điểu kiện sẽ tương ứng với một dòng \chuyencode{elseif}. Cú pháp như sau:
+\begin{lstlisting}
+	if Bieu_thuc_dieu_kien_1
+		Nhom_cau_lenh_1
+	elseif Bieu_thuc_dieu_kien_2
+		Nhom_cau_lenh_2
+	elseif Bieu_thuc_dieu_kien_3
+		Nhom_cau_lenh_3
+	...
+	else
+		Nhom_cau_lenh_khong_thoa_dk_nao_o_tren
+	end
+\end{lstlisting}
+\textbf{Lưu ý:} Thứ tự dò điều kiện từ trên xuống dưới, nếu gặp điều kiện thoả mãn, nhóm lệnh bên trong đó sẽ được thực thi, còn các lệnh còn lại sẽ không được thực thi. Riêng câu lệnh \chuyencode{else} sau cùng có thể lượt bớt đi mà không ảnh hưởng đến cấu trúc.\\
+Các vòng lặp \chuyencode{for} và \chuyencode{while} đều có thể bổ sung vào cấu trúc \chuyencode{if-else-end} như ví dụ minh hoạ dưới đây, tính số eps:
+\begin{lstlisting}
+	
+\end{lstlisting}
 \subsection{Cấu trúc switch-case}
 %Chương 4:
 \section{Đồ hoạ trong hệ toạ độ phẳng và không gian ba chiều}
