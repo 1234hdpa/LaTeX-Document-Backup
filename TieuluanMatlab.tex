@@ -17,6 +17,12 @@
 %Chuyển hình EPS sang dạng PDF tránh gây lỗi font
 \usepackage{epstopdf}
 
+%Cải thiện sắp xếp vị trí hình ảnh, dùng kèm với [H] trong phần option ảnh
+\usepackage{float}
+
+%Dùng dấu chấm thay dấu hai chấm trong caption ảnh
+\usepackage[labelsep=period]{caption}
+
 %Phần thiết kế khung code nhập liệu
 \usepackage{listings}
 \usepackage{color}
@@ -1471,7 +1477,7 @@ Nếu người dùng thay đổi thứ tự các đối số thì đồ thị s�
 	\begin{center}
 		\includegraphics[scale=0.6]{hinhtieuluan/dothi4}
 	\end{center}
-		\caption{Đồ thị hàm số $y=\sin{x}$ và $z=\cos{x}$}
+		\caption{}
 		\label{refdothi4}
 	\end{figure}
 \end{center}
@@ -1484,7 +1490,7 @@ Mặc định MATLAB chọn màu đồ thị là \chuyencode{blue} và kiểu đ
 \begin{tabular}{|ll|ll|ll|}
 \hline
 \multicolumn{1}{|c|}{Biểu tượng} & \multicolumn{1}{c|}{Màu} & \multicolumn{1}{c|}{Biểu tượng} & \multicolumn{1}{c|}{Dấu} & \multicolumn{1}{c|}{Biểu tượng} & \multicolumn{1}{c|}{Kiểu nét vẽ} \\ \hline
-\rowcolor[HTML]{C0C0C0} 
+\rowcolor[HTML]{DBDBDB} 
 b                                & Xanh da trời             & .                               & Điểm                     & -                               & Nét liền                         \\
 g                                & Xanh lá cây              & 0                               & Tròn                     & :                               & Đường chấm                       \\
 \rowcolor[HTML]{DBDBDB} 
@@ -1505,58 +1511,361 @@ w                                & Trắng                    & v               
 \rowcolor[HTML]{DBDBDB} 
                                  &                          & h                               & Hexagram                 &                                 &                                  \\ \hline
 \end{tabular}
-\end{table}
+\end{table}\\
+Ta thực hiện thay đổi kiểu đường và dấu vẽ đồ thị ở ví dụ trước đó như sau:
+\begin{lstlisting}
+	>> plot(x,y,'b:p',x,z,'c-',x,z,'m+')
+\end{lstlisting}
+\begin{center}
+	\begin{figure}[H]
+	\begin{center}
+		\includegraphics[scale=0.6]{hinhtieuluan/dothi5}
+	\end{center}
+		\caption{}
+		\label{refdothi5}
+	\end{figure}
+\end{center}
 \subsubsection{Kiểu đồ thị}
+Lệnh \chuyencode{colordef} cho phép bạn lựa chọn kiểu hiển thị. Giá trị mặc định của \chuyencode{colordef} là \chuyencode{white}. Kiểu này sử dụng trục toạ độ, màu nền, nên hình vẽ màu xám sáng, và tên tiêu đề của trục màu đen. Người dùng có thể dùng lệnh \chuyencode{colordef black}, sẽ cho ra nền trục toạ độ đen, nền hình vẽ màu tối xám, và tiêu đề trục màu trắng
 \subsubsection{Đồ thị lưới, hộp chức trục, nhãn và lời chú giải}
+\begin{itemize}
+	\item Lệnh \chuyencode{grid on} sẽ thêm đường lưới vào đồ thị hiện tại.
+	\item Lệnh \chuyencode{grid off} sẽ bỏ các nét lưới đã thêm vào trước đó.
+	\item Hộp viền ngoài toạ độ có thể tắt đi với \chuyencode{box off} và bật lại với \chuyencode{box on}.
+	\item Gắn nhãn vào trục đứng với lệnh \chuyencode{ylabel}.
+	\item Gắn nhãn vào trục ngang với lệnh \chuyencode{xlabel}.
+	\item Thêm tiêu đề phía trên đồ thị với lệnh \chuyencode{title}.
+\end{itemize}
+Xét đồ thị $\sin{x}$ và $\cos{x}$ trước đó, ta thực hiện tạo lại đồ thị cơ bản như sau:
+\begin{lstlisting}
+	>> x=linspace(0,2*pi,30);
+	>> y=sin(x);
+	>> z=cos(x);
+	>> plot(x,y,x,z)
+\end{lstlisting}
+\begin{center}
+	\begin{figure}[H]
+	\begin{center}
+		\includegraphics[scale=0.6]{hinhtieuluan/dothi2}
+	\end{center}
+		\caption{}
+		\label{refdothi2}
+	\end{figure}
+\end{center}
+Tiến hành tắt đi hộp viền ngoài trục toạ độ, đặt tên nhãn cho trục ngang, trục đứng và tiêu đề cho đồ thị như sau:
+\begin{lstlisting}
+	>> box off
+	>> xlabel('Independent variable X')
+	>> ylabel('Dependent variable Y and Z')
+	>> title('Sine and Cosine Curve')
+	>> print -deps dothi6
+\end{lstlisting}
+\begin{center}
+	\begin{figure}[H]
+	\begin{center}
+		\includegraphics[scale=0.6]{hinhtieuluan/dothi6}
+	\end{center}
+		\caption{}
+		\label{refdothi6}
+	\end{figure}
+\end{center}
+Ngoài ra, người dùng có thể dùng lệnh \chuyencode{text(x,y,'string')} để thêm chú thích hay tên của đồ thị tại toạ độ x, y tuỳ ý. Nếu người dùng không muốn bỏ hình vẽ khỏi hệ trục đang xét, người dùng có thể thêm chuỗi văn bản bằng cách di chuột đến vị trị mong muốn. Lệnh \chuyencode{gtext} sẽ thực hiện việc này. Sau đây là ví dụ minh hoạ:
+\begin{lstlisting}
+	>> text(2.5,0.7,'sin(x)')
+	>> gtext('cos(x)')
+\end{lstlisting}
+\begin{center}
+	\begin{figure}[H]
+	\begin{center}
+		\includegraphics[scale=0.6]{hinhtieuluan/dothi7}
+	\end{center}
+		\caption{}
+		\label{refdothi7}
+	\end{figure}
+\end{center}
 \subsubsection{Kiến tạo hệ trục toạ độ}
+Người dùng có thể chỉnh sửa thay đổi khoảng cách hay kiểu của trục đứng và trục ngang thông qua lệnh \chuyencode{axis}. Áp dụng vào đồ thị có sẵn từ ví dụ phần trước ta thực hành các lệnh cơ bản như:
+\begin{itemize}
+	\item Bỏ trục toạ độ.
+\begin{lstlisting}
+	>> axis off
+\end{lstlisting}
+\begin{center}
+	\begin{figure}[H]
+	\begin{center}
+		\includegraphics[scale=0.6]{hinhtieuluan/dothi8}
+	\end{center}
+		\caption{}
+		\label{refdothi8}
+	\end{figure}
+\end{center}
+	\item Bật trục toạ độ, tắt đường lưới.
+\begin{lstlisting}
+	>> axis on, grid off
+\end{lstlisting}
+\begin{center}
+	\begin{figure}[H]
+	\begin{center}
+		\includegraphics[scale=0.6]{hinhtieuluan/dothi9}
+	\end{center}
+		\caption{}
+		\label{refdothi9}
+	\end{figure}
+\end{center}
+	\item Lật ngược đồ thị.
+\begin{lstlisting}
+	>> axis ij
+\end{lstlisting}
+\begin{center}
+	\begin{figure}[H]
+	\begin{center}
+		\includegraphics[scale=0.6]{hinhtieuluan/dothi10}
+	\end{center}
+		\caption{}
+		\label{refdothi10}
+	\end{figure}
+\end{center}
+	\item Thực hiện đồng thời thang chia trục như nhau và dạng đồ thị theo hình vuông.
+\begin{lstlisting}
+	>> axis square equal
+\end{lstlisting}
+\begin{center}
+	\begin{figure}[H]
+	\begin{center}
+		\includegraphics[scale=0.6]{hinhtieuluan/dothi11}
+	\end{center}
+		\caption{}
+		\label{refdothi11}
+	\end{figure}
+\end{center}
+	\item Trở về thiết lập mặc định.
+\begin{lstlisting}
+	>> axis xy normal
+\end{lstlisting}
+\begin{center}
+	\begin{figure}[H]
+	\begin{center}
+		\includegraphics[scale=0.6]{hinhtieuluan/dothi12}
+	\end{center}
+		\caption{}
+		\label{refdothi12}
+	\end{figure}
+\end{center}
+\end{itemize}
 \subsubsection{In hình}
+Có hai cách để in hình hay đồ thị vừa vẽ là in từ cửa sổ hình vẽ  và in từ cửa sổ lệnh:
+\begin{itemize}
+	\item Thực hiện in hình từ cửa sổ chứa hình qua menu \menu{File>Print...}. Cửa sổ \textbf{Print} sẽ hiện ra và người dùng tiếp tục thao tác in ấn quen thuộc.
+	\item Từ cửa sổ dòng lệnh, ta chọn hình cần in bằng lệnh \chuyencode{figure(n)}, với n là số thứ tự của hình cần in. sau đó ta dùng lệnh in với cú pháp:
+\begin{lstlisting}
+	>> print
+\end{lstlisting}
+	\item Ngoài hai cách trên, người dùng còn có thể in hình thành tệp ảnh có định dạng đuôi là eps để chèn vào nội dung tuỳ ý. Cú pháp như sau:
+\begin{lstlisting}
+	>> print -deps ten_hinh_anh
+\end{lstlisting}
+\end{itemize}
+Ngoài ra người dùng còn có thể thay đổi kiểu in thông qua lệnh \chuyencode{orient} với các kiểu như sau:
+\begin{itemize}
+	\item Kiểu \chuyencode{portrait} in theo chiều đứng và hình nằm giữa trang.
+	\item Kiểu \chuyencode{landspace} in theo chiều ngang và hình kín toàn bộ trang.
+	\item Kiểu \chuyencode{tall} in theo chiều đứng nhưng hình kín toàn bộ trang.
+\end{itemize}
+Ta chỉ cần gõ cú pháp \chuyencode{orient kieu\_in} để thực hiện thay đổi kiểu in.
 \subsubsection{Thao tác với đồ thị}
+Ta có thể vẽ thêm hoặc tuỳ biến đồ thị mà không cần phải vẽ lại đồ thị nhiều lần bằng lệnh \chuyencode{hold}. Nhờ có lệnh \chuyencode{hold} mà người dùng có thể dùng lệnh \chuyencode{plot} liên tục mà không lo mất hình ảnh các đồ thị đã vẽ trước đó. Lệnh \chuyencode{ishold} trả về kết quả trạng thái của lệnh \chuyencode{hold} có hoạt động hay chưa. Xét ví dụ phần trước ta có:
+\begin{lstlisting}
+	>> x=linspace(0,2*pi,30);
+	>> y=sin(x);
+	>> z=cos(x);
+	>> plot(x,y);
+\end{lstlisting}
+\begin{center}
+	\begin{figure}[H]
+	\begin{center}
+		\includegraphics[scale=0.6]{hinhtieuluan/dothi1}
+	\end{center}
+		\caption{}
+		\label{refdothi1}
+	\end{figure}
+\end{center}
+Ta tiến hành giữ nguyên đồ thị bằng lệnh \chuyencode{hold} và vẽ thêm đồ thị $z=\cos{x}$ như sau:
+\begin{lstlisting}
+	>> hold on
+	>> plot(x,z,'m*')
+	>> hold off
+\end{lstlisting}
+\begin{center}
+	\begin{figure}[H]
+	\begin{center}
+		\includegraphics[scale=0.6]{hinhtieuluan/dothi13}
+	\end{center}
+		\caption{}
+		\label{refdothi13}
+	\end{figure}
+\end{center}
+\textbf{Lưu ý:} Một cửa sổ \textbf{figure} có thể chứa nhiều hệ trục toạ độ trong đó khi ta áp dụng lệnh \chuyencode{subplot(m,n,p)}. Trong đó, m và n chia cửa sổ thành một ma trận $mxn$ để vẽ đồ thị và p là cửa sổ hoạt động. Các đồ thị thành phần được đánh số thứ tự từ trái sang phải, từ trên xuống dưới.
+\begin{example}
+	Vẽ 4 đồ thị gồm $y=\sin{x} , z=\cos{x} , u=2 \sin{x} \cos{x} , v= \dfrac{\sin{x}}{\cos{x}}$ trong cùng một figure, trong đoạn $0 \leq x \leq 2\pi$ lấy 30 giá trị. Cú pháp như sau:
+\begin{lstlisting}
+	>> x=linspace(0,2*pi,30);
+	>> y=sin(x);
+	>> z=cos(x);
+	>> u=2*sin(x).*cos(x);
+	>> v=sin(x)./cos(x+eps);
+	>> subplot(2,2,1)
+	>> plot(x,y),axis([0,2*pi,-1,1]),title('sin(x)')
+	>> subplot(2,2,2)
+	>> plot(x,z),axis([0,2*pi,-1,1]),title('cos(x)')
+	>> subplot(2,2,3)
+	>> plot(x,u),axis([0,2*pi,-1,1]),title('2sin(x)cos(x)')
+	>> subplot(2,2,4)
+	>> plot(x,v),axis([0,2*pi,-20,20]),title('sin(x)/cos(x)')
+\end{lstlisting}
+\begin{center}
+	\begin{figure}[H]
+	\begin{center}
+		\includegraphics[scale=1]{hinhtieuluan/dothi14}
+	\end{center}
+		\caption{}
+		\label{refdothi14}
+	\end{figure}
+\end{center}
+\end{example}
 \subsection{Đồ hoạ trong không gian ba chiều}
 \subsubsection{Đồ thị đường thẳng}
+Lệnh \chuyencode{plot} trong không gian hai chiều có thể mở rộng cho không gian 3 chiều bằng lệnh \chuyencode{plot3}. Cú pháp như sau:
+\begin{lstlisting}
+	>> plot3(x1,y1,z1,S1,x2,y2,z2,S2,...)
+\end{lstlisting}
+Trong đó các xn, yn và zn là các vectơ hoặc ma trận và Sn là xâu ký tự quy định dạng đồ thị (màu sắc, kiểu đường, kiểu đánh dấu...). Ví dụ một đồ thị trong không gian ba chiều như sau:
+\begin{lstlisting}
+	>> t=linspace(0,10*pi);
+	>> plot3(sin(t),cos(t),t)
+	>> title('Helix'),xlabel('sin(t)')
+	>> ylabel('cos(t)'),zlabel('t')
+\end{lstlisting}
+\begin{center}
+	\begin{figure}[H]
+	\begin{center}
+		\includegraphics[scale=0.6]{hinhtieuluan/dothi15}
+	\end{center}
+		\caption{Đường Helix trong không gian ba chiều}
+		\label{refdothi15}
+	\end{figure}
+\end{center}
+Hàm \chuyencode{zlabel} tương ứng với hàm hai chiều là \chuyencode{xlabel} và \chuyencode{ylabel}. Thêm vào đó lệnh \chuyencode{axis} sẽ dùng cú pháp: \chuyencode{axis([xmin xmax ymin ymax zmin zmax])} để thiết lập giới hạn cho cả 3 trục.\\
+Ngoài ra hàm \chuyencode{text} dùng cú pháp: \chuyencode{text(x,y,z,'string')} để đặt chuỗi văn bản vào toạ độ x, y, z theo ý muốn.
 \subsubsection{Đồ thị bề mặt và lưới}
+Hàm \chuyencode{meshgrid} tạo ma trận mới mà các hàng và cột là bản sao của hai ma trận cho trước. Cú pháp như sau: \chuyencode{[X,Y]=meshgrid(x,y)}. Sau đây là ví dụ cách dùng hàm \chuyencode{meshgrid}.
+\begin{itemize}
+	\item Tạo ma trận X, Y từ hàm \chuyencode{meshgrid}:
+\begin{lstlisting}
+	>> x=-7.5:.5:7.5;
+	>> y=x;
+	>> [X,Y]=meshgrid(x,y);
+\end{lstlisting}	
+	\item X, Y là một cặp ma trận tương ứng một lưới chữ nhật trong mặt phẳng x-y. Mọi hàm $z=f(x,y)$ có thể sử dụng tính chất này.
+	\item Ma trận R chứa bán kính mỗi điểm trong [X,Y], nó là khoảng cách từ mỗi điểm đến tâm ma trận. Ta cộng thêm \textbf{eps} để không xảy ra phép chia cho 0. Ma trận Z chứa sin của bán kính chia cho bán kính mỗi điểm trong sơ đồ. Câu lệnh sau vẽ đồ thị  lưới:
+\begin{lstlisting}
+	>> R=sqrt(X.^2+Y.^2)+eps;
+	>> Z=sin(R)./R;
+	>> mesh(X,Y,Z)
+\end{lstlisting}
+\begin{center}
+	\begin{figure}[H]
+	\begin{center}
+		\includegraphics[scale=0.6]{hinhtieuluan/dothi16}
+	\end{center}
+		\caption{}
+		\label{refdothi16}
+	\end{figure}
+\end{center}
+\textbf{Lưu ý:} Đồ thị có thể tuỳ biến màu sắc trong phần \chuyencode{colormaps} của MATLAB.
+\end{itemize}
+Đồ thị bề mặt sử dụng lệnh \chuyencode{surf} để vẽ như sau:
+\begin{lstlisting}
+	>> surf(X,Y,Z)
+\end{lstlisting}
+\begin{center}
+	\begin{figure}[H]
+	\begin{center}
+		\includegraphics[scale=0.6]{hinhtieuluan/dothi17}
+	\end{center}
+		\caption{}
+		\label{refdothi17}
+	\end{figure}
+\end{center}
+Thêm một ví dụ nữa, ta dùng hàm \chuyencode{peaks} kết hợp với lệnh \chuyencode{mesh} như sau:
+\begin{lstlisting}
+	>> mesh(peaks)
+	>> title('Mesh Plot of Peaks function')
+\end{lstlisting}
+\begin{center}
+	\begin{figure}[H]
+	\begin{center}
+		\includegraphics[scale=0.6]{hinhtieuluan/dothi18}
+	\end{center}
+		\caption{}
+		\label{refdothi18}
+	\end{figure}
+\end{center}
 \subsubsection{Thao tác với đồ thị}
+MATLAB cho phép người dùng khai báo góc qua sát đồ thị trong không gian ba chiều. Hàm \chuyencode{view(azimuth, elevation)} thiết lập góc xem qua hai thành phần là \chuyencode{azimuth} (mô tả góc trong hệ trục nơi người qua sát đứng) và \chuyencode{elevation} (mô tả vị trí người quan sát).\\
+Thành phần \chuyencode{azimuth} thiết lập dương thì hình sẽ quay ngược chiều kim đồng hồ từ điểm nhìn mặc định. Thành phần \chuyencode{elevation} nếu thiết lập là âm thì \chuyencode{view} sẽ nhìn hình từ phía dưới lên. Nếu muốn nhìn trực tiếp ta dùng lệnh \chuyencode{view(0,90)}. Ngoài ra, dạng \chuyencode{view(2)} cho ta góc xem hoàn toàn giống như mặc định của \chuyencode{view(0,90)} và dạng \chuyencode{view(3)} thiết lập mặc định trong không gian 3 chiều.
+\begin{center}
+	\begin{figure}[H]
+	\begin{center}
+		\includegraphics[scale=0.6]{hinhtieuluan/dothi19}
+	\end{center}
+		\caption{}
+		\label{refdothi19}
+	\end{figure}
+\end{center}
+\begin{center}
+	\begin{figure}[H]
+	\begin{center}
+		\includegraphics[scale=0.6]{hinhtieuluan/dothi20}
+	\end{center}
+		\caption{}
+		\label{refdothi20}
+	\end{figure}
+\end{center}
+Ngoài hai thành phần \chuyencode{azimuth} và \chuyencode{elevation}, người dùng còn có thể dùng trực tiếp toạ độ Đề-các bằng cú pháp: \chuyencode{view([X,Y,Z])}.\\
+Hàm \chuyencode{rotate3d} cho phép dùng chuột can thiệp vào góc quan sát. Lệnh \chuyencode{hidden} sẽ ẩn đi các nét khuất. Cách dùng lệnh \chuyencode{hidden} như ví dụ dưới đây:
+\begin{itemize}
+	\item Thiết lập đồ thị ban đầu.
+\begin{lstlisting}
+	>> mesh(peaks(20)+7)
+	>> hold on
+	>> pcolor(peaks(20))
+	>> hold off
+	>> title('Mesh with hidden on')
+\end{lstlisting}
+\begin{center}
+	\begin{figure}[H]
+	\begin{center}
+		\includegraphics[scale=0.6]{hinhtieuluan/dothi21}
+	\end{center}
+		\caption{}
+		\label{refdothi21}
+	\end{figure}
+\end{center}
+	\item Chọn \chuyencode{hidden off}.
+\begin{lstlisting}
+	>> hidden off
+	>> title('Mesh with Hidden Off')
+\end{lstlisting}
+\begin{center}
+	\begin{figure}[H]
+	\begin{center}
+		\includegraphics[scale=0.6]{hinhtieuluan/dothi22}
+	\end{center}
+		\caption{}
+		\label{refdothi22}
+	\end{figure}
+\end{center}
+\end{itemize}
 
-	%Bìa để sau
-	
-	%Mục lục
-	
-	Tiểu luận môn học Phần mềm Toán học
 
-“Một số kiến thức về phần mềm MATLAB”
-
-Chương 1: Cơ bản về MATLAB
-
-1.1  Không gian làm việc
-
-1.2  Biến, câu giải thích, chấm câu
-
-1.3  Các hằng số, các phép toán cơ bản, các hàm toán học.
-
-1.4  Quản lý tập, M-file, M-hàm
-
-(C1 $\rightarrow$ C4)
-
-Chương 2: Các thao tác và phép toán với mảng
-
-(C6 và C7)
-
-Chương 3: Vòng lặp điều khiển (C11)
-
-Chương 4: Đồ thị trong mặt phẳng và trong không gian
-
-(Bổ sung nhiều ví dụ và bài tập)
-	%Test cho code
-	\begin{lstlisting}
-	// Hello.java
-	for (i:1);
-	import javax.swing.JApplet;
-	import java.awt.Graphics;
-
-	public class Hello extends JApplet {
-    	public void paintComponent(Graphics g) {
-        	g.drawString("Hello, world!", 65, 95);
-    	}    
-	}
-	\end{lstlisting}
-	
 \end{document}
