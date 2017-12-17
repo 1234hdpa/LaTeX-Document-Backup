@@ -1,6 +1,6 @@
 %Phần thiết đặt trang
 \documentclass[12pt,a4paper]{article}
-\usepackage[LGRgreek]{mathastext}
+\usepackage{mathastext}
 \usepackage[utf8]{vietnam}
 \usepackage{amsfonts}
 \usepackage{amsmath}
@@ -11,6 +11,8 @@
 \usepackage{parskip}
 \setlength{\parskip}{0.5em}
 
+%Chuyển hình EPS sang dạng PDF tránh gây lỗi font
+\usepackage{epstopdf}
 
 %Phần thiết kế khung code nhập liệu
 \usepackage{listings}
@@ -1353,15 +1355,126 @@ Khi có ba hoặc nhiều điều kiện thay đổi hơn ta dùng cú pháp \ch
 	end
 \end{lstlisting}
 \textbf{Lưu ý:} Thứ tự dò điều kiện từ trên xuống dưới, nếu gặp điều kiện thoả mãn, nhóm lệnh bên trong đó sẽ được thực thi, còn các lệnh còn lại sẽ không được thực thi. Riêng câu lệnh \chuyencode{else} sau cùng có thể lượt bớt đi mà không ảnh hưởng đến cấu trúc.\\
-Các vòng lặp \chuyencode{for} và \chuyencode{while} đều có thể bổ sung vào cấu trúc \chuyencode{if-else-end} như ví dụ minh hoạ dưới đây, tính số eps:
+Các vòng lặp \chuyencode{for} và \chuyencode{while} đều có thể bổ sung vào cấu trúc \chuyencode{if-else-end} như ví dụ minh hoạ dưới đây, tạo một mảng x chứa các số chẵn từ 1 đến 10:
 \begin{lstlisting}
-	
+	>> x=[];
+	>> n=1;
+	for num = 1:10
+		if mod(num,2)==0
+		x(n)=num;
+		n=n+1;
+		end
+	end
+	x
+	x =
+     2     4     6     8    10
 \end{lstlisting}
+Để ngắt vòng lặp ở bất kỳ câu lệnh nào, người dùng chỉ cần thêm lệnh \textbf{\chuyencode{break}} vào dòng muốn ngắt khỏi vòng lặp.
 \subsection{Cấu trúc switch-case}
+Trong trường hợp mỗi điều kiện chạy mỗi nhóm lệnh thì ta thường dùng \chuyencode{if-elseif-...-else-end}. Tuy nhiên với nhiều điều kiện hơn thì việc lặp đi lặp lại cùng một biểu thức mà chỉ khác kết quả tính toán thì ta nên chọn \chuyencode{switch-case} sẽ giúp chạy các nhóm lệnh hiệu quả, mạch lạc và ngắn gọn hơn nhiều. Cú pháp của cấu trúc \chuyencode{switch-case} như sau:
+\begin{lstlisting}
+	switch Bieu_thuc_dieu_kien
+		case Gia_tri_dieu_kien_1
+			Nhom_cau_lenh_1
+		case Gia_tri_dieu_kien_2
+			Nhom_cau_lenh_2
+		...
+		case {Gia_tri_8, Gia_tri_9, Gia_tri_10}
+			Nhom_cau_lenh_thoa_man
+		otherwise
+			Nhom_cau_lenh_khong_thuoc_dk_nao
+	end
+\end{lstlisting}
+Đối với cấu trúc này, biểu thức điều kiện sẽ đưa ra kết quả là giá trị số hoặc chữ, dựa vào kết quả từ biểu thức điều kiện mà nhóm lệnh thoả giá trị của \chuyencode{case} sẽ được thực thi. Yêu cầu của nhóm lệnh là không được bỏ trống hay có ít nhất 1 câu lệnh bên trong.
+\begin{example}
+Nhập vào một độ dài x với đơn vị độ dài bất kỳ, sau đó chuyển đổi độ dài x đó sang đơn vị cen-ti-mét (cm). Cú pháp như sau:
+\begin{lstlisting}
+	>> x=2.7;
+	units='m';
+	switch units
+		case {'inch','in'}
+		y=x*2.54;
+		case {'meter','m'}
+		y=x/100;
+		case {millimeter','mm'}
+		y=x*10;
+		case {'centimeter','cm'}
+		y=x;
+		otherwise
+		disp(['Unknown units: ' units])
+		y=nan;
+	end
+	y
+	y =
+    	0.0270
+\end{lstlisting}
+\end{example}
+
 %Chương 4:
 \section{Đồ hoạ trong hệ toạ độ phẳng và không gian ba chiều}
 \subsection{Đồ hoạ trong hệ toạ độ phẳng}
 \subsubsection{Sử dụng lệnh plot}
+Phần lớn các câu lệnh để vẽ đồ thị trong mặt phẳng đều là lệnh \chuyencode{plot}. Chức năng chính của \chuyencode{plot} là vẽ đồ thị của một mảng dữ liệu trong một hệ trục thích hợp và nối các điểm bằng đường thẳng.
+\begin{example}
+Mô phỏng đồ thị hàm $\sin{x}$ với 30 điểm dữ liệu trong đoạn $0\leq x\leq 2\pi$	 theo chiều ngang của đồ thị. Cú pháp như sau:
+\begin{lstlisting}
+	>> x=linspace(0,2*pi,30);
+	>> y=sin(x);
+	>> plot(x,y)
+\end{lstlisting}
+\begin{center}
+	\begin{figure}[htp]
+	\begin{center}
+		\includegraphics[scale=0.6]{hinhtieuluan/dothi1}
+	\end{center}
+		\caption{Đồ thị hàm số $y=\sin{x}$}
+		\label{refdothi1}
+	\end{figure}
+\end{center}
+Một cửa số mới sẽ được mở ra khi ta thực thi các dòng lệnh trên. Trong cửa sổ mới hiển thị đồ thị theo yêu cầu. Ta hoàn toàn có thể nhiều hàm số trong cùng một cửa sổ đồ thị như cách ta bổ sung thêm hàm $\cos{x}$ dưới đây:
+\begin{lstlisting}
+	>> z=cos(x);
+	>> plot(x,y,x,z)
+\end{lstlisting}
+\begin{center}
+	\begin{figure}[htp]
+	\begin{center}
+		\includegraphics[scale=0.6]{hinhtieuluan/dothi2}
+	\end{center}
+		\caption{Đồ thị hàm số $y=\sin{x}$ và $z=\cos{x}$}
+		\label{refdothi2}
+	\end{figure}
+\end{center}
+Trong trường hợp một trong các đối số là ma trận và đối số còn lại là vectơ thì lệnh \chuyencode{plot} sẽ vẽ tương ứng mỗi cột của ma trận với vectơ đó. Cú pháp như bên dưới:
+\begin{lstlisting}
+	>> W=[y;z];
+	>> plot(x,W)
+\end{lstlisting}
+\begin{center}
+	\begin{figure}[htp]
+	\begin{center}
+		\includegraphics[scale=0.6]{hinhtieuluan/dothi3}
+	\end{center}
+		\caption{Đồ thị hàm số $y=\sin{x}$ và $z=\cos{x}$}
+		\label{refdothi3}
+	\end{figure}
+\end{center}
+Nếu người dùng thay đổi thứ tự các đối số thì đồ thị sẽ xoay một góc bằng 90 độ như bên dưới đây:
+\begin{lstlisting}
+	>> plot(W,x)
+\end{lstlisting}
+\begin{center}
+	\begin{figure}[htp]
+	\begin{center}
+		\includegraphics[scale=0.6]{hinhtieuluan/dothi4}
+	\end{center}
+		\caption{Đồ thị hàm số $y=\sin{x}$ và $z=\cos{x}$}
+		\label{refdothi4}
+	\end{figure}
+\end{center}
+
+\end{example}
+
 \subsubsection{Kiểu đường, dấu và màu}
 \subsubsection{Kiểu đồ thị}
 \subsubsection{Đồ thị lưới, hộp chức trục, nhãn và lời chú giải}
