@@ -11,6 +11,9 @@
 \usepackage{parskip}
 \setlength{\parskip}{0.5em}
 
+%Màu sắc cho bảng
+\usepackage[table,xcdraw]{xcolor}
+
 %Chuyển hình EPS sang dạng PDF tránh gây lỗi font
 \usepackage{epstopdf}
 
@@ -1472,10 +1475,37 @@ Nếu người dùng thay đổi thứ tự các đối số thì đồ thị s�
 		\label{refdothi4}
 	\end{figure}
 \end{center}
-
 \end{example}
-
 \subsubsection{Kiểu đường, dấu và màu}
+Mặc định MATLAB chọn màu đồ thị là \chuyencode{blue} và kiểu đường là \chuyencode{solid}. Người dùng có thể thay đổi kiểu dáng và màu sắc cho đồ thị thông qua các chuỗi đặc biệt được quy định như bản dưới đây:
+\begin{table}[hp]
+\centering
+\label{bang3}
+\begin{tabular}{|ll|ll|ll|}
+\hline
+\multicolumn{1}{|c|}{Biểu tượng} & \multicolumn{1}{c|}{Màu} & \multicolumn{1}{c|}{Biểu tượng} & \multicolumn{1}{c|}{Dấu} & \multicolumn{1}{c|}{Biểu tượng} & \multicolumn{1}{c|}{Kiểu nét vẽ} \\ \hline
+\rowcolor[HTML]{C0C0C0} 
+b                                & Xanh da trời             & .                               & Điểm                     & -                               & Nét liền                         \\
+g                                & Xanh lá cây              & 0                               & Tròn                     & :                               & Đường chấm                       \\
+\rowcolor[HTML]{DBDBDB} 
+r                                & Đỏ                       & x                               & Dấu x                    & -.                              & Đường gạch chấm                  \\
+c                                & Xanh xám                 & +                               & Dấu +                    & --                              & Đường gạch gạch                  \\
+\rowcolor[HTML]{DBDBDB} 
+m                                & Đỏ tím                   & *                               & Dấu *                    &                                 &                                  \\
+y                                & Vàng                     & s                               & Vuông                    &                                 &                                  \\
+\rowcolor[HTML]{DBDBDB} 
+k                                & Đen                      & d                               & Diamond                  &                                 &                                  \\
+w                                & Trắng                    & v                               & Triangle (down)          &                                 &                                  \\
+\rowcolor[HTML]{DBDBDB} 
+                                 &                          & \textasciicircum                & Triangle (up)            &                                 &                                  \\
+                                 &                          & \textless                       & Triangle (left)          &                                 &                                  \\
+\rowcolor[HTML]{DBDBDB} 
+                                 &                          & \textgreater                    & Triangle (right)         &                                 &                                  \\
+                                 &                          & p                               & Pentagram                &                                 &                                  \\
+\rowcolor[HTML]{DBDBDB} 
+                                 &                          & h                               & Hexagram                 &                                 &                                  \\ \hline
+\end{tabular}
+\end{table}
 \subsubsection{Kiểu đồ thị}
 \subsubsection{Đồ thị lưới, hộp chức trục, nhãn và lời chú giải}
 \subsubsection{Kiến tạo hệ trục toạ độ}
