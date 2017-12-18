@@ -11,6 +11,14 @@
 \usepackage{parskip}
 \setlength{\parskip}{0.5em}
 
+%Điều chỉnh nội dung bảng danh sách hình vẽ
+\usepackage[titles]{tocloft}
+\newlength{\mylen}
+\renewcommand{\cftfigpresnum}{\figurename\enspace}
+\renewcommand{\cftfigaftersnum}{:}
+\settowidth{\mylen}{\cftfigpresnum\cftfigaftersnum}
+\addtolength{\cftfignumwidth}{\mylen}
+
 %Màu sắc cho bảng
 \usepackage[table,xcdraw]{xcolor}
 
@@ -1868,4 +1876,9 @@ Hàm \chuyencode{rotate3d} cho phép dùng chuột can thiệp vào góc quan s�
 \end{itemize}
 \newpage
 \listoffigures
+\newpage
+\begin{center}
+	\textbf{TÀI LIỆU THAM KHẢO}\\
+
+\end{center}
 \end{document}
